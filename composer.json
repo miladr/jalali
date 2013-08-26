@@ -1,0 +1,21 @@
+{
+    "name": "miladr/jalali",
+    "description": "This Package helps developers to easily work with Jalali (Shamsi or Iranian) dates in Laravel 4 applications, based on Jalali (Shamsi) DateTime class. This Package is based on a Laravel 3 bundle sallar/laravel-jdate by Sallar Kaboli.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Milad Rey",
+            "email": "miladr@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x"
+    },
+    "autoload": {
+        "psr-0": {
+            "Miladr\\Jalali": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
