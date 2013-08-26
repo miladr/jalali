@@ -37,30 +37,30 @@ Some Examples (based on examples provided by Sallar)
 
 ```php
 // default timestamp is now
-$date = App::make('jalali')->forge();
+$date = jDate::forge();
 
 // pass timestamps
-$date = App::make('jalali')->forge(1333857600);
+$date = jDate::forge(1333857600);
 
 // pass strings to make timestamps
-$date = App::make('jalali')->forge('last sunday');
+$date = jDate::forge('last sunday');
 
 // get the timestamp
-$date = App::make('jalali')->forge('last sunday')->time(); // 1333857600
+$date = jDate::forge('last sunday')->time(); // 1333857600
 
 // format the timestamp
-$date = App::make('jalali')->forge('last sunday')->format('%B %d، %Y'); // دی 02، 1391
+$date = jDate::forge('last sunday')->format('%B %d، %Y'); // دی 02، 1391
 
 // get a predefined format
-$date = App::make('jalali')->forge('last sunday')->format('datetime'); // 1391-10-02 00:00:00
-$date = App::make('jalali')->forge('last sunday')->format('date'); // 1391-10-02
-$date = App::make('jalali')->forge('last sunday')->format('time'); // 00:00:00
+$date = jDate::forge('last sunday')->format('datetime'); // 1391-10-02 00:00:00
+$date = jDate::forge('last sunday')->format('date'); // 1391-10-02
+$date = jDate::forge('last sunday')->format('time'); // 00:00:00
 
 // amend the timestamp value, relative to existing value
-$date = App::make('jalali')->forge('2012-10-12')->reforge('+ 3 days')->format('date'); // 1391-07-24
+$date = jDate::forge('2012-10-12')->reforge('+ 3 days')->format('date'); // 1391-07-24
 
 // get relative 'ago' format
-$date = App::make('jalali')->forge('now - 10 minutes')->ago() // ۱۰ دقیقه پیش
+$date = jDate::forge('now - 10 minutes')->ago() // ۱۰ دقیقه پیش
 ```
 
 
