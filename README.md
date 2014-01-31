@@ -75,4 +75,4 @@ The class relies on ``strtotime()`` to make sense of your strings, and ``strftim
 ## License ##
 - This bundle is created based on [Laravel-Date](https://github.com/swt83/laravel-date) by [Scott Travis](https://github.com/swt83) (MIT Licensed).  
 - [Jalali (Shamsi) DateTime](https://github.com/sallar/jDateTime) class included in the package is created by [Sallar Kaboli](http://sallar.me) and is released under the MIT License. 
-- This package was created by [Milad Rey](https://twitter.com/miladrey) and is released under the MIT License.
+- This package was created by [Milad Rey](http://milad.io) and is released under the MIT License.
