@@ -37,6 +37,17 @@ class JalaliServiceProvider extends ServiceProvider {
           $loader = \Illuminate\Foundation\AliasLoader::getInstance();
           $loader->alias('jDate', 'Miladr\Jalali\jDate');
 	});
+	
+      $this->app['jDateTime'] = $this->app->share(function($app)
+  		{
+  		  return new jDateTime;
+	});
+      $this->app->booting(function()
+      {
+          $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+          $loader->alias('jDateTime', 'Miladr\Jalali\jDateTime');
+	});
+
 
   }
  
