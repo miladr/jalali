@@ -58,7 +58,7 @@ class JalaliServiceProvider extends ServiceProvider {
    */
   public function provides()
   {
-    return array('jalali');
+    return array('jalali','jDateTime');
   }
 
 }
