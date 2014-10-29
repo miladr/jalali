@@ -62,7 +62,7 @@ class jDate
 		return $this->time;
 	}
 
-	public function format($str, $convertNumbersToPersion = false)
+	public function format($str, $convertNumbersToPersian = false)
 	{
 		// convert alias string
 		if (in_array($str, array_keys($this->formats))){
