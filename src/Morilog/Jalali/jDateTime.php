@@ -88,7 +88,7 @@ class jDateTime
      * @param $timezone string (Optional) forces a different timezone. pass null to use system default
      * @return string Formatted input
      */
-    public static function date($format, $stamp = false, $convert = null, $jalali = null, $timezone = null)
+    public static function date($format, $stamp = false, $convert = null, $jalali = false, $timezone = null)
     {
         //Timestamp + Timezone
         $stamp    = ($stamp != false) ? $stamp : time();
