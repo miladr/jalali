@@ -12,7 +12,7 @@
 			"email": "m.parvini@outlook.com"
 		}
     ],
-    "keywords": ["Laravel","Date","Datetime","Jalali", "Morilog"],
+    "keywords": ["Laravel","Date","Datetime","Jalali"],
     "require": {
         "php": ">=5.3.0"
     },

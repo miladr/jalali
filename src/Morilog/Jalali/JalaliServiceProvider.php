@@ -1,4 +1,4 @@
-<?php namespace Miladr\Jalali;
+<?php namespace Morilog\Jalali;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -18,7 +18,7 @@ class JalaliServiceProvider extends ServiceProvider {
    */
   public function boot()
   {
-    $this->package('miladr/jalali');
+    $this->package('morilog/jalali');
   }
  
   /**
@@ -35,7 +35,7 @@ class JalaliServiceProvider extends ServiceProvider {
       $this->app->booting(function()
       {
           $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-          $loader->alias('jDate', 'Miladr\Jalali\jDate');
+          $loader->alias('jDate', 'Morilog\Jalali\jDate');
 	});
 	
       $this->app['jDateTime'] = $this->app->share(function($app)
@@ -45,7 +45,7 @@ class JalaliServiceProvider extends ServiceProvider {
       $this->app->booting(function()
       {
           $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-          $loader->alias('jDateTime', 'Miladr\Jalali\jDateTime');
+          $loader->alias('jDateTime', 'Morilog\Jalali\jDateTime');
 	});
 
 

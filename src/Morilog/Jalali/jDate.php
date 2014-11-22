@@ -1,4 +1,4 @@
-<?php namespace Miladr\Jalali;
+<?php namespace Morilog\Jalali;
 
 /**
  * A LaravelPHP helper class for working w/ jalali dates.

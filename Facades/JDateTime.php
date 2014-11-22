@@ -1,4 +1,4 @@
-<?php namespace milad\jalali\Facades;
+<?php namespace Morilog\Jalali\Facades;
  
 use Illuminate\Support\Facades\Facade;
  
