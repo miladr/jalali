@@ -3,6 +3,8 @@ morilog/jalali
 
 This Package helps developers to easily work with Jalali (Shamsi or Iranian) dates in Laravel 4 applications, based on Jalali (Shamsi) DateTime class. This Package is based on a Laravel 3 bundle [sallar/laravel-jdate](https://github.com/sallar/laravel-jdate) by [Sallar Kaboli](http://sallar.me).
 
+- This package was forked from [Miladr/Jalali](http://github.com/miladr/jalai) and fixed bugs and customized by [Morilog](http://morilog.ir) 
+
 <a name="installation"></a>
 ## Installation
 
@@ -76,4 +78,3 @@ The class relies on ``strtotime()`` to make sense of your strings, and ``strftim
 - This bundle is created based on [Laravel-Date](https://github.com/swt83/laravel-date) by [Scott Travis](https://github.com/swt83) (MIT Licensed).  
 - [Jalali (Shamsi) DateTime](https://github.com/sallar/jDateTime) class included in the package is created by [Sallar Kaboli](http://sallar.me) and is released under the MIT License. 
 - This package was created by [Milad Rey](http://milad.io) and is released under the MIT License.
-- This package was forked from [Miladr/Jalali](http://github.com/miladr/jalai) and fixed bugs and customized by [Morilog](http://morilog.ir) 
