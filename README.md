@@ -63,6 +63,12 @@ $date = jDate::forge('2012-10-12')->reforge('+ 3 days')->format('date'); // 1391
 
 // get relative 'ago' format
 $date = jDate::forge('now - 10 minutes')->ago() // ۱۰ دقیقه پیش
+
+//date_parse_from_format for jalali date
+$date = jDate::parseFromFormat('1393/01/18', 'Y/m/d');
+echo $date['year']; //1393
+echo $date['month']; //01
+echo $date['day']; //18
 ```
 
 
