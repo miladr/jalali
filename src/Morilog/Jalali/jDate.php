@@ -9,7 +9,7 @@
  * by Scott Travis <scott.w.travis@gmail.com>
  * http://github.com/swt83/laravel-date
  *
- * 
+ *
  * @package     jDate
  * @author      Sallar Kaboli <sallar.kaboli@gmail.com>
  * @link        http://
