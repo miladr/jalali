@@ -466,6 +466,34 @@ class jDateTime
     {
         return (int) ($a / $b);
     }
+    /**
+     * Converts Gregorian DateTime to Jalali and return it as string.
+     * By Ahmad Pouramini
+     */
+	public static function toJalaliStr($g_date, $curSep = '-', $newSep = '/')
+	{		
+		$arr = explode($curSep, $g_date);
+		if (count($arr) < 3 || intval($arr[2]) == 0) //invalid dates
+			return "";
+		else
+			$j_date = jDateTime::toJalali($arr[0],$arr[1],$arr[2]);
+		$j_date_rev = array($j_date[2],$j_date[1],$j_date[0]);
+		return implode($newSep,$j_date_rev);
+	}
+    /**
+     * Converts Jalai DateTime to Gregorian and return it as string.
+     * By Ahmad Pouramini
+     */
+	public static function toGregorianStr($j_date, $sep = '/')
+	{
+		$arr = explode($sep,$j_date);
+		if (count($arr) < 3 || intval($arr[0]) == 0) // invalid date
+			return "";
+		else
+		   $g_date = jDateTime::toGregorian($arr[2],$arr[1],$arr[0]);
+		return implode($sep,$g_date);
+	}
+
 
     /**
      * Gregorian to Jalali Conversion
