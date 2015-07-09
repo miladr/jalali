@@ -9,6 +9,6 @@ class JDateTime extends Facade {
    *
    * @return string
    */
-  protected static function getFacadeAccessor() { return 'JDateTime'; }
+  protected static function getFacadeAccessor() { return 'jDateTime'; }
  
 }
