@@ -29,8 +29,8 @@ In your `config/app.php` add `'Morilog\Jalali\JalaliServiceProvider'` to the end
     .
     'alias' => [
         ...
-        'Morilog\Jalali\Facades\jDate',
-        'Morilog\Jalali\Facades\jDateTime',
+        'jDate' => 'Morilog\Jalali\Facades\jDate',
+        'jDateTime' => 'Morilog\Jalali\Facades\jDateTime',
     ]
 ```
 
