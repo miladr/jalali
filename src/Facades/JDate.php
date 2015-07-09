@@ -2,7 +2,7 @@
  
 use Illuminate\Support\Facades\Facade;
  
-class jDate extends Facade {
+class JDate extends Facade {
  
   /**
    * Get the registered name of the component.
