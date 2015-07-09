@@ -14,14 +14,24 @@ Run the Composer update comand
 In your `config/app.php` add `'Morilog\Jalali\JalaliServiceProvider'` to the end of the `$providers` array
 
 ```php
-    'providers' => array(
+    'providers' => [
 
         'Illuminate\Foundation\Providers\ArtisanServiceProvider',
         'Illuminate\Auth\AuthServiceProvider',
         ...
         'Morilog\Jalali\JalaliServiceProvider',
 
-    ),
+    ],
+    .
+    .
+    .
+    .
+    .
+    'alias' => [
+        ...
+        'Morilog\Jalali\Facades\jDate',
+        'Morilog\Jalali\Facades\jDateTime',
+    ]
 ```
 
 <a name="basic-usage"></a>
