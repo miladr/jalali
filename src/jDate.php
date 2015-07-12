@@ -214,14 +214,19 @@ class jDate
         return $dt;
     }
 
-    public function carbonFromFormat($format, $str)
+    /**
+     * @param $format
+     * @param $str
+     * @return \DateTime
+     */
+    public static function dateTimeFromFormat($format, $str)
     {
         $jd = new jDate();
         $pd = $jd->parseFromFormat($format, $str);
         $gd = jDateTime::toGregorian($pd['year'], $pd['month'], $pd['day']);
-        $carbon = Carbon::createFromDate();
-        $carbon->setDateTime($gd[0], $gd[1], $gd[2], $pd['hour'], $pd['minute'], $pd['second']);
-        return $carbon;
-
+        $date = new \DateTime();
+        $date->setDate($gd[0], $gd[1], $gd[2]);
+        $date->setTime($pd['hour'], $pd['minute'], $pd['second']);
+        return $date;
     }
 }
