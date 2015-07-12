@@ -197,6 +197,36 @@ class jDate
         $dt['zone_type'] = 0;
         $dt['zone'] = 0;
         $dt['is_dst'] = '';
+
+        if (strlen($dt['year']) == 2) {
+            $now = self::forge('now');
+            $x = $now->format('Y') - $now->format('y');
+            $dt['year'] += $x;
+        }
+
+        $dt['year'] = isset($dt['year']) ? (int)$dt['year'] : 0;
+        $dt['month'] = isset($dt['month']) ? (int)$dt['month'] : 0;
+        $dt['day'] = isset($dt['day']) ? (int)$dt['day'] : 0;
+        $dt['hour'] = isset($dt['hour']) ? (int)$dt['hour'] : 0;
+        $dt['minute'] = isset($dt['minute']) ? (int)$dt['minute'] : 0;
+        $dt['second'] = isset($dt['second']) ? (int)$dt['second'] : 0;
+
         return $dt;
+    }
+
+    /**
+     * @param $format
+     * @param $str
+     * @return \DateTime
+     */
+    public static function dateTimeFromFormat($format, $str)
+    {
+        $jd = new jDate();
+        $pd = $jd->parseFromFormat($format, $str);
+        $gd = jDateTime::toGregorian($pd['year'], $pd['month'], $pd['day']);
+        $date = new \DateTime();
+        $date->setDate($gd[0], $gd[1], $gd[2]);
+        $date->setTime($pd['hour'], $pd['minute'], $pd['second']);
+        return $date;
     }
 }
