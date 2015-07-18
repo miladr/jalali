@@ -1,4 +1,5 @@
-<?php namespace Morilog\Jalali;
+<?php
+namespace Morilog\Jalali;
 
 /**
  * A LaravelPHP helper class for working w/ jalali dates.
@@ -30,6 +31,7 @@ class jDate
     public static function forge($str = null)
     {
         $class = __CLASS__;
+
         return new $class($str);
     }
 
@@ -167,10 +169,12 @@ class jDate
             $skipCurrent = '\\' == $lastChar;
             if (!$skipCurrent && isset($keys[$char])) {
                 $regex .= '(?P<' . $keys[$char][0] . '>' . $keys[$char][1] . ')';
-            } else if ('\\' == $char) {
-                $regex .= $char;
             } else {
-                $regex .= preg_quote($char);
+                if ('\\' == $char) {
+                    $regex .= $char;
+                } else {
+                    $regex .= preg_quote($char);
+                }
             }
         }
 
@@ -227,6 +231,7 @@ class jDate
         $date = new \DateTime();
         $date->setDate($gd[0], $gd[1], $gd[2]);
         $date->setTime($pd['hour'], $pd['minute'], $pd['second']);
+
         return $date;
     }
 }
