@@ -13,21 +13,36 @@ namespace Morilog\Jalali;
  *
  * @package     jDate
  * @author      Sallar Kaboli <sallar.kaboli@gmail.com>
+ * @author      Morteza Parvini <m.parvini@outlook.com>
  * @link        http://
  * @basedon     http://github.com/swt83/laravel-date
  * @license     MIT License
  */
 
+/**
+ * Class jDate
+ * @package Morilog\Jalali
+ */
 class jDate
 {
+    /**
+     * @var int
+     */
     protected $time;
 
+    /**
+     * @var array
+     */
     protected $formats = array(
         'datetime' => '%Y-%m-%d %H:%M:%S',
         'date' => '%Y-%m-%d',
         'time' => '%H:%M:%S',
     );
 
+    /**
+     * @param string|null $str
+     * @return $this
+     */
     public static function forge($str = null)
     {
         $class = __CLASS__;
@@ -35,6 +50,9 @@ class jDate
         return new $class($str);
     }
 
+    /**
+     * @param string|null $str
+     */
     public function __construct($str = null)
     {
         if ($str === null) {
@@ -54,11 +72,19 @@ class jDate
         }
     }
 
+    /**
+     * @return int
+     */
     public function time()
     {
         return $this->time;
     }
 
+    /**
+     * @param string $str
+     * @param bool|false $convertNumbersToPersian
+     * @return bool|string
+     */
     public function format($str, $convertNumbersToPersian = false)
     {
         // convert alias string
@@ -74,6 +100,10 @@ class jDate
         }
     }
 
+    /**
+     * @param string $str
+     * @return $this
+     */
     public function reforge($str)
     {
         if ($this->time !== false) {
@@ -93,6 +123,9 @@ class jDate
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function ago()
     {
         $now = time();
@@ -128,6 +161,9 @@ class jDate
         return number_format($difference) . ' ' . $periods[$j] . ' ' . (isset($negative) ? '' : 'پیش');
     }
 
+    /**
+     * @return bool|string
+     */
     public function until()
     {
         return $this->ago();
