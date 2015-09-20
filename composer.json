@@ -7,10 +7,10 @@
             "name": "Milad Rey",
             "email": "miladr@gmail.com"
         },
-		{
-			"name": "Morteza Parvini",
-			"email": "m.parvini@outlook.com"
-		}
+	{
+		"name": "Morteza Parvini",
+		"email": "m.parvini@outlook.com"
+	}
     ],
     "keywords": ["Laravel","Date","Datetime","Jalali", "Morilog"],
     "require": {
