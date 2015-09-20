@@ -14,7 +14,7 @@
     ],
     "keywords": ["Laravel","Date","Datetime","Jalali", "Morilog"],
     "require": {
-        "php": ">=5.4",
+        "php": ">=5.5",
         "illuminate/support": "^5.0"
     },
     "require-dev" : {
