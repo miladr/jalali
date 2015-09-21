@@ -1,3 +1,4 @@
+https://travis-ci.org/morilog/jalali.svg?branch=master
 morilog/jalali
 ======
 - This package compatible with Laravel 5
