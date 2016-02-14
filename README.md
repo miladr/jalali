@@ -15,24 +15,24 @@ Run the Composer update comand
 In your `config/app.php` add `'Morilog\Jalali\JalaliServiceProvider'` to the end of the `$providers` array
 
 ```php
-    'providers' => [
+'providers' => [
 
-        'Illuminate\Foundation\Providers\ArtisanServiceProvider',
-        'Illuminate\Auth\AuthServiceProvider',
-        ...
-        'Morilog\Jalali\JalaliServiceProvider',
+    'Illuminate\Foundation\Providers\ArtisanServiceProvider',
+    'Illuminate\Auth\AuthServiceProvider',
+    ...
+    'Morilog\Jalali\JalaliServiceProvider',
 
-    ],
-    .
-    .
-    .
-    .
-    .
-    'alias' => [
-        ...
-        'jDate' => 'Morilog\Jalali\Facades\jDate',
-        'jDateTime' => 'Morilog\Jalali\Facades\jDateTime',
-    ]
+],
+.
+.
+.
+.
+.
+'alias' => [
+    ...
+    'jDate' => 'Morilog\Jalali\Facades\jDate',
+    'jDateTime' => 'Morilog\Jalali\Facades\jDateTime',
+]
 ```
 
 <a name="basic-usage"></a>
@@ -41,12 +41,17 @@ In your `config/app.php` add `'Morilog\Jalali\JalaliServiceProvider'` to the end
 
 Some Examples (based on examples provided by Sallar)
 
+In version >= 1.1,  You can use `jdate()` instead of `jDate::forge()`;
+
 ```php
 // default timestamp is now
 $date = jDate::forge();
+// OR $date = jdate();
 
 // pass timestamps
 $date = jDate::forge(1333857600);
+// OR $date = jdate(1333857600);
+
 
 // pass strings to make timestamps
 $date = jDate::forge('last sunday');
@@ -74,7 +79,6 @@ echo $date['year']; //1393
 echo $date['month']; //01
 echo $date['day']; //18
 ```
-
 
 ## Formatting ##
 
