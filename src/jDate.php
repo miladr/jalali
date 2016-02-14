@@ -136,7 +136,7 @@ class jDate
      * @param $date
      * @return array
      */
-    public function parseFromFormat($format, $date)
+    public static function parseFromFormat($format, $date)
     {
         // reverse engineer date formats
         $keys = array(

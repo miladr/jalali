@@ -43,5 +43,15 @@ class jDateTest extends PHPUnit_Framework_TestCase
         $this->assertTrue('۱۳۹۴-۰۳-۲۳' === $jDate);
     }
 
+    public function test_parseFromPersian()
+    {
+        $jalaliDate = '1393/03/27';
+        $date = \Morilog\Jalali\jDate::parseFromFormat('Y/m/d', $jalaliDate);
+
+        $this->assertEquals(1393, $date['year']);
+        $this->assertEquals(03, $date['month']);
+        $this->assertEquals(27, $date['day']);
+    }
+
 
 }
