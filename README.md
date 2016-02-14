@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/morilog/jalali.svg?branch=master)](https://travis-ci.org/morilog/jalali)
 morilog/jalali
 ======
 - This package compatible with Laravel 5
