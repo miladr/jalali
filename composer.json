@@ -23,7 +23,10 @@
     "autoload": {
         "psr-4": {
             "Morilog\\Jalali\\": "src"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "minimum-stability": "dev"
 }
