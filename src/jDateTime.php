@@ -1,4 +1,5 @@
-<?php namespace Morilog\Jalali;
+<?php
+namespace Morilog\Jalali;
 
 /**
  * Jalali DateTime Class, supports years higher than 2038
@@ -127,7 +128,32 @@ class jDateTime
             list($year, $month, $day) = array($obj->format('Y'), $obj->format('n'), $obj->format('j'));
             list($jyear, $jmonth, $jday) = self::toJalali($year, $month, $day);
 
-            $keys = array('d', 'D', 'j', 'l', 'N', 'S', 'w', 'z', 'W', 'F', 'm', 'M', 'n', 't', 'L', 'o', 'Y', 'y', 'a', 'A', 'c', 'r', 'e', 'T');
+            $keys = array(
+                'd',
+                'D',
+                'j',
+                'l',
+                'N',
+                'S',
+                'w',
+                'z',
+                'W',
+                'F',
+                'm',
+                'M',
+                'n',
+                't',
+                'L',
+                'o',
+                'Y',
+                'y',
+                'a',
+                'A',
+                'c',
+                'r',
+                'e',
+                'T'
+            );
             $keys = self::filterArray($chars, $keys, array('z'));
             $values = array();
 
@@ -210,7 +236,8 @@ class jDateTime
                         $v .= $obj->format('H') . ':' . $obj->format('i') . ':' . $obj->format('s') . $obj->format('P');
                         break;
                     case 'r':
-                        $v = self::getDayNames($obj->format('D'), true) . ', ' . sprintf("%02d", $jday) . ' ' . self::getMonthNames($jmonth, true);
+                        $v = self::getDayNames($obj->format('D'), true) . ', ' . sprintf("%02d",
+                                $jday) . ' ' . self::getMonthNames($jmonth, true);
                         $v .= ' ' . $jyear . ' ' . $obj->format('H') . ':' . $obj->format('i') . ':' . $obj->format('s') . ' ' . $obj->format('P');
                         break;
                     //Timezone
@@ -233,11 +260,12 @@ class jDateTime
 
             //Return
             $ret = strtr($format, array_combine($keys, $values));
+
             return
-            ($convert === false ||
-                ($convert === null && self::$convert === false) ||
-                ($jalali === false || $jalali === null && self::$jalali === false))
-            ? $ret : self::convertNumbers($ret);
+                ($convert === false ||
+                    ($convert === null && self::$convert === false) ||
+                    ($jalali === false || $jalali === null && self::$jalali === false))
+                    ? $ret : self::convertNumbers($ret);
 
         }
 
@@ -285,23 +313,89 @@ class jDateTime
     public static function strftime($format, $stamp = false, $jalali = null, $timezone = null)
     {
         $str_format_code = array(
-            "%a", "%A", "%d", "%e", "%j", "%u", "%w",
-            "%U", "%V", "%W",
-            "%b", "%B", "%h", "%m",
-            "%C", "%g", "%G", "%y", "%Y",
-            "%H", "%I", "%l", "%M", "%p", "%P", "%r", "%R", "%S", "%T", "%X", "%z", "%Z",
-            "%c", "%D", "%F", "%s", "%x",
-            "%n", "%t", "%%",
+            "%a",
+            "%A",
+            "%d",
+            "%e",
+            "%j",
+            "%u",
+            "%w",
+            "%U",
+            "%V",
+            "%W",
+            "%b",
+            "%B",
+            "%h",
+            "%m",
+            "%C",
+            "%g",
+            "%G",
+            "%y",
+            "%Y",
+            "%H",
+            "%I",
+            "%l",
+            "%M",
+            "%p",
+            "%P",
+            "%r",
+            "%R",
+            "%S",
+            "%T",
+            "%X",
+            "%z",
+            "%Z",
+            "%c",
+            "%D",
+            "%F",
+            "%s",
+            "%x",
+            "%n",
+            "%t",
+            "%%",
         );
 
         $date_format_code = array(
-            "D", "l", "d", "j", "z", "N", "w",
-            "W", "W", "W",
-            "M", "F", "M", "m",
-            "y", "y", "y", "y", "Y",
-            "H", "h", "g", "i", "A", "a", "h:i:s A", "H:i", "s", "H:i:s", "h:i:s", "H", "H",
-            "D j M H:i:s", "d/m/y", "Y-m-d", "U", "d/m/y",
-            "\n", "\t", "%",
+            "D",
+            "l",
+            "d",
+            "j",
+            "z",
+            "N",
+            "w",
+            "W",
+            "W",
+            "W",
+            "M",
+            "F",
+            "M",
+            "m",
+            "y",
+            "y",
+            "y",
+            "y",
+            "Y",
+            "H",
+            "h",
+            "g",
+            "i",
+            "A",
+            "a",
+            "h:i:s A",
+            "H:i",
+            "s",
+            "H:i:s",
+            "h:i:s",
+            "H",
+            "H",
+            "D j M H:i:s",
+            "d/m/y",
+            "Y-m-d",
+            "U",
+            "d/m/y",
+            "\n",
+            "\t",
+            "%",
         );
 
         //Change Strftime format to Date format
@@ -349,7 +443,8 @@ class jDateTime
         }
 
         //Create a new object and set the timezone if available
-        $date = $year . '-' . sprintf("%02d", $month) . '-' . sprintf("%02d", $day) . ' ' . $hour . ':' . $minute . ':' . $second;
+        $date = $year . '-' . sprintf("%02d", $month) . '-' . sprintf("%02d",
+                $day) . ' ' . $hour . ':' . $minute . ':' . $second;
 
         if (self::$timezone != null || $timezone != null) {
             $obj = new \DateTime($date, new \DateTimeZone(($timezone != null) ? $timezone : self::$timezone));
@@ -428,28 +523,43 @@ class jDateTime
     {
         $ret = '';
         switch (strtolower($day)) {
-            case 'sat':case 'saturday':$ret = 'شنبه';
+            case 'sat':
+            case 'saturday':
+                $ret = 'شنبه';
                 $n = 1;
                 break;
-            case 'sun':case 'sunday':$ret = 'یکشنبه';
+            case 'sun':
+            case 'sunday':
+                $ret = 'یکشنبه';
                 $n = 2;
                 break;
-            case 'mon':case 'monday':$ret = 'دوشنبه';
+            case 'mon':
+            case 'monday':
+                $ret = 'دوشنبه';
                 $n = 3;
                 break;
-            case 'tue':case 'tuesday':$ret = 'سه شنبه';
+            case 'tue':
+            case 'tuesday':
+                $ret = 'سه شنبه';
                 $n = 4;
                 break;
-            case 'wed':case 'wednesday':$ret = 'چهارشنبه';
+            case 'wed':
+            case 'wednesday':
+                $ret = 'چهارشنبه';
                 $n = 5;
                 break;
-            case 'thu':case 'thursday':$ret = 'پنجشنبه';
+            case 'thu':
+            case 'thursday':
+                $ret = 'پنجشنبه';
                 $n = 6;
                 break;
-            case 'fri':case 'friday':$ret = 'جمعه';
+            case 'fri':
+            case 'friday':
+                $ret = 'جمعه';
                 $n = 7;
                 break;
         }
+
         return ($numeric) ? $n : (($shorten) ? mb_substr($ret, 0, $len, 'UTF-8') : $ret);
     }
 
@@ -457,31 +567,44 @@ class jDateTime
     {
         $ret = '';
         switch ($month) {
-            case '1':$ret = 'فروردین';
+            case '1':
+                $ret = 'فروردین';
                 break;
-            case '2':$ret = 'اردیبهشت';
+            case '2':
+                $ret = 'اردیبهشت';
                 break;
-            case '3':$ret = 'خرداد';
+            case '3':
+                $ret = 'خرداد';
                 break;
-            case '4':$ret = 'تیر';
+            case '4':
+                $ret = 'تیر';
                 break;
-            case '5':$ret = 'امرداد';
+            case '5':
+                $ret = 'امرداد';
                 break;
-            case '6':$ret = 'شهریور';
+            case '6':
+                $ret = 'شهریور';
                 break;
-            case '7':$ret = 'مهر';
+            case '7':
+                $ret = 'مهر';
                 break;
-            case '8':$ret = 'آبان';
+            case '8':
+                $ret = 'آبان';
                 break;
-            case '9':$ret = 'آذر';
+            case '9':
+                $ret = 'آذر';
                 break;
-            case '10':$ret = 'دی';
+            case '10':
+                $ret = 'دی';
                 break;
-            case '11':$ret = 'بهمن';
+            case '11':
+                $ret = 'بهمن';
                 break;
-            case '12':$ret = 'اسفند';
+            case '12':
+                $ret = 'اسفند';
                 break;
         }
+
         return ($shorten) ? mb_substr($ret, 0, $len, 'UTF-8') : $ret;
     }
 
@@ -489,12 +612,13 @@ class jDateTime
     {
         $farsi_array = array("۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹");
         $english_array = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+
         return str_replace($english_array, $farsi_array, $matches);
     }
 
     private static function div($a, $b)
     {
-        return (int) ($a / $b);
+        return (int)($a / $b);
     }
 
     /**

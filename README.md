@@ -1,34 +1,38 @@
+[![Build Status](https://travis-ci.org/morilog/jalali.svg?branch=master)](https://travis-ci.org/morilog/jalali)
 morilog/jalali
 ======
+- This package compatible with Laravel 5
 
-This Package helps developers to easily work with Jalali (Shamsi or Iranian) dates in Laravel 4 applications, based on Jalali (Shamsi) DateTime class. This Package is based on a Laravel 3 bundle [sallar/laravel-jdate](https://github.com/sallar/laravel-jdate) by [Sallar Kaboli](http://sallar.me).
-
-- This package was forked from [Miladr/Jalali](http://github.com/miladr/jalai) and fixed bugs and customized by [Morilog](http://morilog.ir)
+- This package was forked from [Miladr/Jalali](http://github.com/miladr/jalai) in previous version and fixed bugs and customized by [Morilog](http://morilog.ir)
 
 <a name="installation"></a>
 ## Installation
 
-In the `require` key of `composer.json` file add the following
-
-```yml
-    "morilog/jalali": "dev-master"
-```
-
 Run the Composer update comand
 
-    $ composer update
+    $ composer require morilog/jalali
 
 In your `config/app.php` add `'Morilog\Jalali\JalaliServiceProvider'` to the end of the `$providers` array
 
 ```php
-    'providers' => array(
+    'providers' => [
 
         'Illuminate\Foundation\Providers\ArtisanServiceProvider',
         'Illuminate\Auth\AuthServiceProvider',
         ...
         'Morilog\Jalali\JalaliServiceProvider',
 
-    ),
+    ],
+    .
+    .
+    .
+    .
+    .
+    'alias' => [
+        ...
+        'jDate' => 'Morilog\Jalali\Facades\jDate',
+        'jDateTime' => 'Morilog\Jalali\Facades\jDateTime',
+    ]
 ```
 
 <a name="basic-usage"></a>

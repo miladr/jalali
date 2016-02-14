@@ -1,20 +1,20 @@
 {
     "name": "morilog/jalali",
-    "description": "This Package helps developers to easily work with Jalali (Shamsi or Iranian) dates in Laravel 4 applications, based on Jalali (Shamsi) DateTime class. This Package is based on a Laravel 3 bundle sallar/laravel-jdate by Sallar Kaboli.",
+    "description": "eThis Package helps developers to easily work with Jalali (Shamsi or Iranian) dates in Laravel 5 applications, based on Jalali (Shamsi) DateTime class.",
     "license": "MIT",
     "authors": [
         {
             "name": "Milad Rey",
             "email": "miladr@gmail.com"
         },
-		{
-			"name": "Morteza Parvini",
-			"email": "m.parvini@outlook.com"
-		}
+	{
+		"name": "Morteza Parvini",
+		"email": "m.parvini@outlook.com"
+	}
     ],
     "keywords": ["Laravel","Date","Datetime","Jalali", "Morilog"],
     "require": {
-        "php": ">=5.4",
+        "php": ">=5.5",
         "illuminate/support": "^5.0"
     },
     "require-dev" : {
