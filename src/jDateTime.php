@@ -1,6 +1,8 @@
 <?php
 namespace Morilog\Jalali;
 
+use Carbon\Carbon;
+
 /**
  * Class jDateTime
  * @package Morilog\Jalali
@@ -293,14 +295,16 @@ class jDateTime
         return [$jy, $jm, $jd];
     }
 
-    public static function date($format, $stamp = false, $convert = false, $jalali = false)
+    /**
+     * @param $format
+     * @param bool $stamp
+     * @return mixed
+     */
+    public static function date($format, $stamp = false)
     {
         $stamp = ($stamp !== false) ? $stamp : time();
         $dateTime = new \DateTime('@' . $stamp);
 
-        if ($jalali === false) {
-            return $dateTime->format($format);
-        }
 
         //Find what to replace
         $chars = (preg_match_all('/([a-zA-Z]{1})/', $format, $chars)) ? $chars[0] : array();
@@ -449,15 +453,15 @@ class jDateTime
         $keys = array_merge($intact, $keys);
         $values = array_merge($intactValues, $values);
 
-        //Return
-        $ret = strtr($format, array_combine($keys, $values));
-
-        return ($convert === false) ? $ret : self::convertNumbers($ret);
-
-
+        return strtr($format, array_combine($keys, $values));
     }
 
-    public static function strftime($format, $stamp = false, $convert = false, $jalali = null)
+    /**
+     * @param $format
+     * @param bool $stamp
+     * @return mixed
+     */
+    public static function strftime($format, $stamp = false)
     {
         $str_format_code = array(
             "%a",
@@ -549,15 +553,7 @@ class jDateTime
         $format = str_replace($str_format_code, $date_format_code, $format);
 
         //Convert to date
-        return self::date($format, $stamp, $convert, $jalali);
-    }
-
-    private static function convertNumbers($matches)
-    {
-        $farsi_array = array("۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹");
-        $english_array = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
-
-        return str_replace($english_array, $farsi_array, $matches);
+        return self::date($format, $stamp);
     }
 
     private static function getDayNames($day, $shorten = false, $len = 1, $numeric = false)
@@ -662,6 +658,132 @@ class jDateTime
         
 
         return $haystack;
+    }
+
+
+    /**
+     * @param $format
+     * @param $date
+     * @return array
+     */
+    public static function parseFromFormat($format, $date)
+    {
+        // reverse engineer date formats
+        $keys = array(
+            'Y' => array('year', '\d{4}'),
+            'y' => array('year', '\d{2}'),
+            'm' => array('month', '\d{2}'),
+            'n' => array('month', '\d{1,2}'),
+            'M' => array('month', '[A-Z][a-z]{3}'),
+            'F' => array('month', '[A-Z][a-z]{2,8}'),
+            'd' => array('day', '\d{2}'),
+            'j' => array('day', '\d{1,2}'),
+            'D' => array('day', '[A-Z][a-z]{2}'),
+            'l' => array('day', '[A-Z][a-z]{6,9}'),
+            'u' => array('hour', '\d{1,6}'),
+            'h' => array('hour', '\d{2}'),
+            'H' => array('hour', '\d{2}'),
+            'g' => array('hour', '\d{1,2}'),
+            'G' => array('hour', '\d{1,2}'),
+            'i' => array('minute', '\d{2}'),
+            's' => array('second', '\d{2}'),
+        );
+
+        // convert format string to regex
+        $regex = '';
+        $chars = str_split($format);
+        foreach ($chars as $n => $char) {
+            $lastChar = isset($chars[$n - 1]) ? $chars[$n - 1] : '';
+            $skipCurrent = '\\' == $lastChar;
+            if (!$skipCurrent && isset($keys[$char])) {
+                $regex .= '(?P<' . $keys[$char][0] . '>' . $keys[$char][1] . ')';
+            } else {
+                if ('\\' == $char) {
+                    $regex .= $char;
+                } else {
+                    $regex .= preg_quote($char);
+                }
+            }
+        }
+
+        $dt = array();
+        $dt['error_count'] = 0;
+        // now try to match it
+        if (preg_match('#^' . $regex . '$#', $date, $dt)) {
+            foreach ($dt as $k => $v) {
+                if (is_int($k)) {
+                    unset($dt[$k]);
+                }
+            }
+            if (!jDateTime::checkdate($dt['month'], $dt['day'], $dt['year'], false)) {
+                $dt['error_count'] = 1;
+            }
+        } else {
+            $dt['error_count'] = 1;
+        }
+        $dt['errors'] = array();
+        $dt['fraction'] = '';
+        $dt['warning_count'] = 0;
+        $dt['warnings'] = array();
+        $dt['is_localtime'] = 0;
+        $dt['zone_type'] = 0;
+        $dt['zone'] = 0;
+        $dt['is_dst'] = '';
+
+        if (strlen($dt['year']) == 2) {
+            $now = self::forge('now');
+            $x = $now->format('Y') - $now->format('y');
+            $dt['year'] += $x;
+        }
+
+        $dt['year'] = isset($dt['year']) ? (int)$dt['year'] : 0;
+        $dt['month'] = isset($dt['month']) ? (int)$dt['month'] : 0;
+        $dt['day'] = isset($dt['day']) ? (int)$dt['day'] : 0;
+        $dt['hour'] = isset($dt['hour']) ? (int)$dt['hour'] : 0;
+        $dt['minute'] = isset($dt['minute']) ? (int)$dt['minute'] : 0;
+        $dt['second'] = isset($dt['second']) ? (int)$dt['second'] : 0;
+
+        return $dt;
+    }
+
+    /**
+     * @param $format
+     * @param $str
+     * @return \DateTime
+     */
+    public static function createDatetimeFromFormat($format, $str)
+    {
+        $pd = self::parseFromFormat($format, $str);
+        $gd = self::toGregorian($pd['year'], $pd['month'], $pd['day']);
+        $date = new \DateTime();
+        $date->setDate($gd[0], $gd[1], $gd[2]);
+        $date->setTime($pd['hour'], $pd['minute'], $pd['second']);
+
+        return $date;
+    }
+
+    /**
+     * @param $format
+     * @param $str
+     * @return Carbon
+     */
+    public static function createCarbonFromFormat($format, $str)
+    {
+        return Carbon::createFromTimestamp(self::createDatetimeFromFormat($format, $str)->getTimestamp());
+    }
+
+    /**
+     * Convert Latin numbers to persian numbers
+     *
+     * @param string $string
+     * @return string
+     */
+    public static function convertNumbers($string)
+    {
+        $farsi_array = array("۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹");
+        $english_array = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+
+        return str_replace($english_array, $farsi_array, $string);
     }
 }
 
