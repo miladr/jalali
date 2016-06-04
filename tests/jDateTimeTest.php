@@ -1,6 +1,7 @@
 <?php
 
 use Morilog\Jalali\jDateTime;
+use Morilog\Jalali\jDate;
 
 class jDateTimeTest extends PHPUnit_Framework_TestCase
 {
@@ -45,6 +46,11 @@ class jDateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1393, $date['year']);
         $this->assertEquals(03, $date['month']);
         $this->assertEquals(27, $date['day']);
+
+        $date = jDateTime::parseFromFormat('Y-m-d H:i:s', '1395-03-15 21:00:00');
+        $this->assertEquals(21, $date['hour']);
+        $this->assertEquals(0, $date['minute']);
+        $this->assertEquals(0, $date['second']);
     }
 
     public function testCreateDateTimeFormFormat()
@@ -65,5 +71,11 @@ class jDateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($carbon instanceof \Carbon\Carbon);
         $this->assertTrue($carbon->day === 14);
         $this->assertTrue('2016-02-14 15:00:00' === $carbon->format('Y-m-d H:i:s'));
+
+        $jalaiDateFormatted = jDate::forge($carbon->toDateString())->format('Y-m-d H:i:s');
+        $jalaiDateTimeFormatted = jDate::forge($carbon->toDateTimeString())->format('Y-m-d H:i:s');
+        $this->assertFalse( $jalaiDateFormatted === '1394-11-25 15:00:00');
+        $this->assertTrue( $jalaiDateTimeFormatted === '1394-11-25 15:00:00');
+
     }
 }
