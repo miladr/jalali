@@ -18,6 +18,7 @@ namespace Morilog\Jalali;
  * @basedon     http://github.com/swt83/laravel-date
  * @license     MIT License
  */
+use Carbon\Carbon;
 
 /**
  * Class jDate
@@ -26,9 +27,10 @@ namespace Morilog\Jalali;
 class jDate
 {
     /**
-     * @var int
+     * @var \DateTime
      */
-    protected $time;
+    protected $dateTime;
+
 
     /**
      * @var array
@@ -41,59 +43,45 @@ class jDate
 
     /**
      * @param string|null $str
+     * @param null $timezone
      * @return $this
      */
-    public static function forge($str = null)
+    public static function forge($str = null, $timezone = null)
     {
-        $class = __CLASS__;
-
-        return new $class($str);
+        return new static($str, $timezone);
     }
 
     /**
      * @param string|null $str
+     * @param null $timezone
      */
-    public function __construct($str = null)
+    public function __construct($str = null, $timezone = null)
     {
-        if ($str === null) {
-            $this->time = time();
-        } else {
-            if (is_numeric($str)) {
-                $this->time = $str;
-            } else {
-                $time = strtotime($str);
-
-                if (!$time) {
-                    $this->time = false;
-                } else {
-                    $this->time = $time;
-                }
-            }
-        }
+        $this->dateTime = jDateTime::createDateTime($str, $timezone);
     }
 
     /**
-     * @return int
+     * @return \DateTime|static
      */
-    public function getTime()
+    public function getDateTime()
     {
-        return $this->time;
+        return $this->dateTime;
     }
 
     /**
-     * @param string $str
+     * @param $format
      * @return bool|string
      */
-    public function format($str)
+    public function format($format)
     {
         // convert alias string
-        if (in_array($str, array_keys($this->formats))) {
-            $str = $this->formats[$str];
+        if (in_array($format, array_keys($this->formats))) {
+            $format = $this->formats[$format];
         }
 
         // if valid unix timestamp...
-        if ($this->time !== false) {
-            return jDateTime::strftime($str, $this->time);
+        if ($this->dateTime !== false) {
+            return jDateTime::strftime($format, $this->dateTime->getTimestamp(), $this->dateTime->getTimezone());
         } else {
             return false;
         }
@@ -105,19 +93,7 @@ class jDate
      */
     public function reforge($str)
     {
-        if ($this->time !== false) {
-            // amend the time
-            $time = strtotime($str, $this->time);
-
-            // if conversion fails...
-            if (!$time) {
-                // set time as false
-                $this->time = false;
-            } else {
-                // accept time value
-                $this->time = $time;
-            }
-        }
+        $this->dateTime->modify($str);
 
         return $this;
     }
@@ -128,7 +104,7 @@ class jDate
     public function ago()
     {
         $now = time();
-        $time = $this->getTime();
+        $time = $this->getDateTime()->getTimestamp();
 
         // catch error
         if (!$time) {
@@ -169,5 +145,5 @@ class jDate
     }
     
 
-    
+
 }

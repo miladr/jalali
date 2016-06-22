@@ -34,7 +34,8 @@ class jDateTimeTest extends PHPUnit_Framework_TestCase
     public function testStrftime()
     {
         $this->assertTrue(jDateTime::strftime('Y-m-d', strtotime('2016-05-8')) === '1395-02-19');
-        $this->assertTrue(jDateTime::convertNumbers(jDateTime::strftime('Y-m-d', strtotime('2016-05-8'))) === '۱۳۹۵-۰۲-۱۹');
+        $this->assertTrue(jDateTime::convertNumbers(jDateTime::strftime('Y-m-d',
+                strtotime('2016-05-8'))) === '۱۳۹۵-۰۲-۱۹');
         $this->assertFalse(jDateTime::strftime('Y-m-d', strtotime('2016-05-8')) === '۱۳۹۵-۰۲-۱۹');
     }
 
@@ -74,8 +75,43 @@ class jDateTimeTest extends PHPUnit_Framework_TestCase
 
         $jalaiDateFormatted = jDate::forge($carbon->toDateString())->format('Y-m-d H:i:s');
         $jalaiDateTimeFormatted = jDate::forge($carbon->toDateTimeString())->format('Y-m-d H:i:s');
-        $this->assertFalse( $jalaiDateFormatted === '1394-11-25 15:00:00');
-        $this->assertTrue( $jalaiDateTimeFormatted === '1394-11-25 15:00:00');
+        $this->assertFalse($jalaiDateFormatted === '1394-11-25 15:00:00');
+        $this->assertTrue($jalaiDateTimeFormatted === '1394-11-25 15:00:00');
 
+    }
+
+    public function testTimezone()
+    {
+        date_default_timezone_set('Asia/Tehran');
+        $tehranDate = jDate::forge();
+        $tehranHour = $tehranDate->format('H');
+        $tehranMin = $tehranDate->format('i');
+
+        date_default_timezone_set('UTC');
+        $utcDate = jDate::forge();
+        $utcHour = $utcDate->format('H');
+        $utcMin = $utcDate->format('i');
+
+        $tzOffset = $this->getTimeZoneOffset('Asia/Tehran', 'UTC');
+
+        $this->assertTrue((((($utcHour * 60) + $utcMin) * 60) - ((($tehranHour * 60) + $tehranMin) * 60)) === $tzOffset);
+
+    }
+
+
+    private function getTimeZoneOffset($remote_tz, $origin_tz = null)
+    {
+        if ($origin_tz === null) {
+            if (!is_string($origin_tz = date_default_timezone_get())) {
+                return false; // A UTC timestamp was returned -- bail out!
+            }
+        }
+        $origin_dtz = new DateTimeZone($origin_tz);
+        $remote_dtz = new DateTimeZone($remote_tz);
+        $origin_dt = new DateTime("now", $origin_dtz);
+        $remote_dt = new DateTime("now", $remote_dtz);
+        $offset = $origin_dtz->getOffset($origin_dt) - $remote_dtz->getOffset($remote_dt);
+        
+        return $offset;
     }
 }

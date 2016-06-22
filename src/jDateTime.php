@@ -298,12 +298,13 @@ class jDateTime
     /**
      * @param $format
      * @param bool $stamp
+     * @param bool $timezone
      * @return mixed
      */
-    public static function date($format, $stamp = false)
+    public static function date($format, $stamp = false, $timezone = null)
     {
         $stamp = ($stamp !== false) ? $stamp : time();
-        $dateTime = new \DateTime('@' . $stamp);
+        $dateTime = static::createDateTime($stamp, $timezone);
 
 
         //Find what to replace
@@ -408,7 +409,7 @@ class jDateTime
                     break;
                 //Year
                 case 'L':
-                    $tmpObj = new \DateTime('@' . (time() - 31536000));
+                    $tmpObj = static::createDateTime(time() - 31536000, $timezone);
                     $v = $tmpObj->format('L');
                     break;
                 case 'o':
@@ -459,9 +460,10 @@ class jDateTime
     /**
      * @param $format
      * @param bool $stamp
+     * @param null $timezone
      * @return mixed
      */
-    public static function strftime($format, $stamp = false)
+    public static function strftime($format, $stamp = false, $timezone = null)
     {
         $str_format_code = array(
             "%a",
@@ -553,7 +555,7 @@ class jDateTime
         $format = str_replace($str_format_code, $date_format_code, $format);
 
         //Convert to date
-        return self::date($format, $stamp);
+        return self::date($format, $stamp, $timezone);
     }
 
     private static function getDayNames($day, $shorten = false, $len = 1, $numeric = false)
@@ -749,13 +751,14 @@ class jDateTime
     /**
      * @param $format
      * @param $str
+     * @param null $timezone
      * @return \DateTime
      */
-    public static function createDatetimeFromFormat($format, $str)
+    public static function createDatetimeFromFormat($format, $str, $timezone = null)
     {
         $pd = self::parseFromFormat($format, $str);
         $gd = self::toGregorian($pd['year'], $pd['month'], $pd['day']);
-        $date = new \DateTime();
+        $date = self::createDateTime('now', $timezone);
         $date->setDate($gd[0], $gd[1], $gd[2]);
         $date->setTime($pd['hour'], $pd['minute'], $pd['second']);
 
@@ -765,11 +768,14 @@ class jDateTime
     /**
      * @param $format
      * @param $str
+     * @param null $timezone
      * @return Carbon
      */
-    public static function createCarbonFromFormat($format, $str)
+    public static function createCarbonFromFormat($format, $str, $timezone = null)
     {
-        return Carbon::createFromTimestamp(self::createDatetimeFromFormat($format, $str)->getTimestamp());
+        $dateTime = self::createDatetimeFromFormat($format, $str, $timezone);
+        
+        return Carbon::createFromTimestamp($dateTime->getTimestamp(), $dateTime->getTimezone());
     }
 
     /**
@@ -784,5 +790,58 @@ class jDateTime
         $english_array = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
 
         return str_replace($english_array, $farsi_array, $string);
+    }
+
+    /**
+     * @param $timestamp
+     * @param null $timezone
+     * @return \DateTime|static
+     */
+    public static function createDateTime($timestamp = null, $timezone = null)
+    {
+        $timezone = static::createTimeZone($timezone);
+
+        if ($timestamp === null) {
+            return Carbon::now($timezone);
+        }
+
+
+        if ($timestamp instanceof \DateTimeInterface) {
+            return $timestamp;
+        }
+
+        if (is_string($timestamp)) {
+            return new \DateTime($timestamp, $timezone);
+        }
+
+        if (is_numeric($timestamp)) {
+            return Carbon::createFromTimestamp($timestamp, $timezone);
+        }
+
+
+        throw new \InvalidArgumentException('timestamp is not valid');
+    }
+
+    /**
+     * @param null $timezone
+     * @return \DateTimeZone|null
+     */
+    public static function createTimeZone($timezone = null)
+    {
+        if ($timezone instanceof \DateTimeZone) {
+            return $timezone;
+        }
+
+        if ($timezone === null) {
+            return new \DateTimeZone(date_default_timezone_get());
+        }
+
+        if (is_string($timezone)) {
+            return new \DateTimeZone($timezone);
+        }
+
+
+        throw new \InvalidArgumentException('timezone is not valid');
+
     }
 }

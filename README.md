@@ -42,7 +42,7 @@ In your `config/app.php` add `'Morilog\Jalali\JalaliServiceProvider'` to the end
 
 ### jDate
 In version >= 1.1,  You can use `jdate()` instead of `jDate::forge()`;
-#### `forge([$str = ''])`
+#### `forge([$str = '', $timestamp = null])`
 ``` php
 // default timestamp is now
 $date = \Morilog\Jalali\jDate::forge();
@@ -103,7 +103,7 @@ $date = jdate('now - 10 minutes')->ago() // 10 دقیقه پیش
 \Morilog\Jalali\jDateTime::toGregorian(1395, 2, 18); // [2016, 5, 7]
 ```
 ---
-#### `strftime($format, [$timestamp = false])`
+#### `strftime($format, [$timestamp = false, $timezone = null])`
 ```php
 jDateTime::strftime('Y-m-d', strtotime('2016-05-8'); // 1395-02-19
 ```
