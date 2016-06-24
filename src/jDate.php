@@ -144,6 +144,12 @@ class jDate
         return $this->ago();
     }
     
-
+    /**
+     * @return int
+     */
+    public function time()
+    {
+        return $this->dateTime->getTimestamp();
+    }
 
 }

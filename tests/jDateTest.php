@@ -44,4 +44,15 @@ class jDateTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue('۱۳۹۴-۰۳-۲۳' === \Morilog\Jalali\jDateTime::convertNumbers($jDate));
     }
+
+    public function test_time()
+    {
+        $time = time();
+        $theTime = \Morilog\Jalali\jDate::forge($time)->time();
+
+        $this->assertTrue($time === $theTime);
+
+        $theTime = \Morilog\Jalali\jDate::forge('now')->time();
+        $this->assertTrue($theTime === strtotime('now'));
+    }
 }
