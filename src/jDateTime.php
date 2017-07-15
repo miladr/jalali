@@ -57,8 +57,10 @@ class jDateTime
         $year = $georgianDateArr[0];
         $month = $georgianDateArr[1];
         $day = $georgianDateArr[2];
-        $georgianDate = new DateTime();
+        $georgianDate = new \DateTime();
         $georgianDate->setDate($year, $month, $day);
+        
+        
         return $georgianDate;
     }
 
