@@ -33,10 +33,10 @@
         "laravel": {
             "providers": [
                 "Morilog\\Jalali\\JalaliServiceProvider"
-            ]
-        },
-        "aliases": {
-            "jDate": "Morilog\\Jalali\\Facades\\jDate"
+            ],
+            "aliases": {
+                "jDate": "Morilog\\Jalali\\Facades\\jDate"
+            }
         }
     },
     "minimum-stability": "dev"
