@@ -122,7 +122,7 @@ $dateTime = \Morilog\Jalali\jDatetime::createDatetimeFromFormat('Y/m/d H:i:s', $
 $jdate = '1394/11/25 15:00:00';
 
 // get instance of \Carbon\Carbon
-$carbon = \Morilog\Jalali\jDatetime::createDatetimeFromFormat('Y/m/d H:i:s', $jdate);
+$carbon = \Morilog\Jalali\jDatetime::createCarbonFromFormat('Y/m/d H:i:s', $jdate);
 
 ```
 ---
