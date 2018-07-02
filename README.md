@@ -113,7 +113,7 @@ jDateTime::strftime('Y-m-d', strtotime('2016-05-8')); // 1395-02-19
 $jdate = '1394/11/25 15:00:00';
 
 // get instance of \DateTime
-$dateTime = \Morilog\Jalali\jDatetime::createDatetimeFromFormat('Y/m/d H:i:s', $jdate);
+$dateTime = \Morilog\Jalali\jDateTime::createDatetimeFromFormat('Y/m/d H:i:s', $jdate);
 
 ```
 ---
@@ -122,7 +122,7 @@ $dateTime = \Morilog\Jalali\jDatetime::createDatetimeFromFormat('Y/m/d H:i:s', $
 $jdate = '1394/11/25 15:00:00';
 
 // get instance of \Carbon\Carbon
-$carbon = \Morilog\Jalali\jDatetime::createCarbonFromFormat('Y/m/d H:i:s', $jdate);
+$carbon = \Morilog\Jalali\jDateTime::createCarbonFromFormat('Y/m/d H:i:s', $jdate);
 
 ```
 ---
