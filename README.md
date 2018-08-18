@@ -128,9 +128,15 @@ $carbon = \Morilog\Jalali\jDateTime::createCarbonFromFormat('Y/m/d H:i:s', $jdat
 ---
 #### `convertNumbers($string)`
 ```php
+// convert latin to persian
 $date = \Morilog\Jalali\jDateTime::strftime('Y-m-d', strtotime('2016-05-8'); // 1395-02-19
 \Morilog\Jalali\jDateTime::convertNumbers($date); // ۱۳۹۵-۰۲-۱۹
+
+// convert persian to latin
+$dateString = \Morilog\Jalali\jDateTime::convertNumbers('۱۳۹۵-۰۲-۱۹', true); // 1395-02-19
+\Morilog\Jalali\jDateTime::createCarbonFromFormat('Y-m-d', $dateString)->format('Y-m-d'); //2016-05-8
 ```
+
 ---
 ## Formatting ##
 

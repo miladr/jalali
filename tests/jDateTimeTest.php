@@ -36,6 +36,9 @@ class jDateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(jDateTime::strftime('Y-m-d', strtotime('2016-05-8')) === '1395-02-19');
         $this->assertTrue(jDateTime::convertNumbers(jDateTime::strftime('Y-m-d',
                 strtotime('2016-05-8'))) === '۱۳۹۵-۰۲-۱۹');
+
+        $dateString = \Morilog\Jalali\jDateTime::convertNumbers('۱۳۹۵-۰۲-۱۹', true); // 1395-02-19
+        $this->assertTrue(\Morilog\Jalali\jDateTime::createCarbonFromFormat('Y-m-d', $dateString)->format('Y-m-d') === '2016-05-08');
         $this->assertFalse(jDateTime::strftime('Y-m-d', strtotime('2016-05-8')) === '۱۳۹۵-۰۲-۱۹');
     }
 
