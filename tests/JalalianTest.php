@@ -56,5 +56,7 @@ final class JalalianTest extends TestCase
         $this->assertEquals($jDate->addMonths(36)->toString(), $jDate->addYears(3)->toString());
         $this->assertEquals($jDate->subYears(10)->toString(), (new Jalalian(1387, 1, 31))->toString());
         $this->assertTrue($jDate->subYears(2)->subMonths(34)->equalsTo(new Jalalian(1393, 10, 30)));
+
+        var_dump(Jalalian::forge('now - 10 minutes')->ago());
     }
 }

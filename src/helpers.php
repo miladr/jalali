@@ -8,16 +8,6 @@ if (! function_exists('jdate')) {
      */
     function jdate($str = null)
     {
-        return \Morilog\Jalali\Jalalian::fromDateTime($str);
+        return \Morilog\Jalali\Jalalian::forge($str);
     }
-}
-
-function dd(...$args)
-{
-    dump(...$args);die();
-}
-
-function dump(...$args)
-{
-    var_dump(...$args);
 }

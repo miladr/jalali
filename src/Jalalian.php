@@ -76,7 +76,7 @@ class Jalalian
         $this->timezone = $timezone;
     }
 
-    public static function now(\DateTimeZone $timeZone = null)
+    public static function now(\DateTimeZone $timeZone = null): Jalalian
     {
         return static::fromCarbon(Carbon::now($timeZone));
     }
@@ -85,7 +85,7 @@ class Jalalian
      * @param Carbon $carbon
      * @return Jalalian
      */
-    public static function fromCarbon(Carbon $carbon)
+    public static function fromCarbon(Carbon $carbon): Jalalian
     {
         $jDate = CalendarUtils::toJalali($carbon->year, $carbon->month, $carbon->day);
 
@@ -93,26 +93,78 @@ class Jalalian
             $carbon->getTimezone());
     }
 
-    /**
-     * @param \DateTimeInterface| string $dateTime
-     * @return Jalalian
-     */
-    public static function fromDateTime($dateTime)
-    {
-        return static::fromCarbon(new Carbon($dateTime));
-    }
-
-    public static function fromFormat(string $format, string $timestamp, \DateTimeZone $timeZone = null)
+    public static function fromFormat(string $format, string $timestamp, \DateTimeZone $timeZone = null): Jalalian
     {
         return static::fromCarbon(CalendarUtils::createCarbonFromFormat($format, $timestamp, $timeZone));
     }
 
-    public function addYears(int $years = 1)
+    public static function forge($timestamp, \DateTimeZone $timeZone = null): Jalalian
+    {
+        return static::fromDateTime($timestamp, $timeZone);
+    }
+
+    /**
+     * @param \DateTimeInterface| string $dateTime
+     * @param \DateTimeZone|null $timeZone
+     * @return Jalalian
+     */
+    public static function fromDateTime($dateTime, \DateTimeZone $timeZone = null): Jalalian
+    {
+        return static::fromCarbon(new Carbon($dateTime, $timeZone));
+    }
+
+    public function getMonthDays()
+    {
+        if ($this->getMonth() <= 6) {
+            return 31;
+        }
+
+        if ($this->getMonth() < 12 || $this->isLeapYear()) {
+            return 30;
+        }
+
+        return 29;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMonth(): int
+    {
+        return $this->month;
+    }
+
+    public function isLeapYear(): bool
+    {
+        return CalendarUtils::isLeapJalaliYear($this->getYear());
+    }
+
+    /**
+     * @return int
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    public function subMonths(int $months = 1): Jalalian
+    {
+        Assertion::greaterOrEqualThan($months, 1);
+
+        $years = (int)($months / 12);
+        $date = $years > 0 ? $this->subYears($years) : clone $this;
+
+        $diff = abs($this->getMonth() - $months + 12);
+
+        return $date->subYears(1)->addMonths($diff);
+    }
+
+    public function subYears(int $years = 1): Jalalian
     {
         Assertion::greaterOrEqualThan($years, 1);
 
         return new static(
-            $this->getYear() + $years,
+            $this->getYear() - $years,
             $this->getMonth(),
             $this->getDay(),
             $this->getHour(),
@@ -122,7 +174,47 @@ class Jalalian
         );
     }
 
-    public function addMonths(int $months = 1)
+    /**
+     * @return int
+     */
+    public function getDay(): int
+    {
+        return $this->day;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHour(): int
+    {
+        return $this->hour;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMinute(): int
+    {
+        return $this->minute;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSecond(): int
+    {
+        return $this->second;
+    }
+
+    /**
+     * @return \DateTimeZone|null
+     */
+    public function getTimezone()
+    {
+        return $this->timezone;
+    }
+
+    public function addMonths(int $months = 1): Jalalian
     {
         Assertion::greaterOrEqualThan($months, 1);
 
@@ -144,86 +236,12 @@ class Jalalian
         return $date->addDays($days);
     }
 
-    /**
-     * @return int
-     */
-    public function getMonth()
-    {
-        return $this->month;
-    }
-
-    /**
-     * @return int
-     */
-    public function getDay()
-    {
-        return $this->day;
-    }
-
-    /**
-     * @return int
-     */
-    public function getHour()
-    {
-        return $this->hour;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMinute()
-    {
-        return $this->minute;
-    }
-
-    /**
-     * @return int
-     */
-    public function getSecond()
-    {
-        return $this->second;
-    }
-
-    /**
-     * @return \DateTimeZone
-     */
-    public function getTimezone()
-    {
-        return $this->timezone;
-    }
-
-    public function getMonthDays()
-    {
-        if ($this->getMonth() <= 6) {
-            return 31;
-        }
-
-        if ($this->getMonth() < 12 || $this->isLeapYear()) {
-            return 30;
-        }
-
-        return 29;
-    }
-
-    public function isLeapYear(): bool
-    {
-        return CalendarUtils::isLeapJalaliYear($this->getYear());
-    }
-
-    /**
-     * @return int
-     */
-    public function getYear()
-    {
-        return $this->year;
-    }
-
-    public function subYears(int $years = 1)
+    public function addYears(int $years = 1): Jalalian
     {
         Assertion::greaterOrEqualThan($years, 1);
 
         return new static(
-            $this->getYear() - $years,
+            $this->getYear() + $years,
             $this->getMonth(),
             $this->getDay(),
             $this->getHour(),
@@ -233,10 +251,37 @@ class Jalalian
         );
     }
 
+    public function getDaysOf(int $monthNumber = 1): int
+    {
+        Assertion::between($monthNumber, 1, 12);
+
+        $months = [
+            1 => 31,
+            2 => 31,
+            3 => 31,
+            4 => 31,
+            5 => 31,
+            6 => 31,
+            7 => 30,
+            8 => 30,
+            9 => 30,
+            10 => 30,
+            11 => 30,
+            12 => $this->isLeapYear() ? 30 : 29,
+        ];
+
+        return $months[$monthNumber];
+    }
+
+    public function addDays(int $days = 1): Jalalian
+    {
+        return static::fromCarbon($this->toCarbon()->addDays($days));
+    }
+
     /**
      * @return Carbon
      */
-    public function toCarbon()
+    public function toCarbon(): Carbon
     {
         $gDate = CalendarUtils::toGregorian($this->getYear(), $this->getMonth(), $this->getDay());
         $carbon = Carbon::createFromDate($gDate[0], $gDate[1], $gDate[2], $this->getTimezone());
@@ -246,49 +291,37 @@ class Jalalian
         return $carbon;
     }
 
-    public function subMonths(int $months = 1)
-    {
-        Assertion::greaterOrEqualThan($months, 1);
-
-        $years = (int)($months / 12);
-        $date = $years > 0 ? $this->subYears($years) : clone $this;
-
-        $diff = abs($this->getMonth() - $months + 12);
-
-        return $date->subYears(1)->addMonths($diff);
-    }
-
-    public function subDays(int $days = 1)
+    public function subDays(int $days = 1): Jalalian
     {
         return static::fromCarbon($this->toCarbon()->subDays($days));
     }
 
-    public function addHours(int $hours = 1)
+    public function addHours(int $hours = 1): Jalalian
     {
         return static::fromCarbon($this->toCarbon()->addHours($hours));
     }
 
-    public function subHours(int $hours = 1)
+    public function subHours(int $hours = 1): Jalalian
     {
         return static::fromCarbon($this->toCarbon()->subHours($hours));
     }
 
-    public function addMinutes(int $minutes = 1)
+    public function addMinutes(int $minutes = 1): Jalalian
     {
         return static::fromCarbon($this->toCarbon()->addMinutes($minutes));
     }
 
-    public function subMinutes(int $minutes = 1)
+    public function subMinutes(int $minutes = 1): Jalalian
     {
         return static::fromCarbon($this->toCarbon()->subMinutes($minutes));
     }
 
-    public function addSeconds(int $secs = 1)
+    public function addSeconds(int $secs = 1): Jalalian
     {
         return static::fromCarbon($this->toCarbon()->addSeconds($secs));
     }
 
-    public function subSeconds(int $secs = 1)
+    public function subSeconds(int $secs = 1): Jalalian
     {
         return static::fromCarbon($this->toCarbon()->subSeconds($secs));
     }
@@ -394,7 +427,7 @@ class Jalalian
         return $this->toCarbon()->isPast();
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'year' => $this->year,
@@ -412,7 +445,7 @@ class Jalalian
         ];
     }
 
-    public function getDayOfWeek()
+    public function getDayOfWeek(): int
     {
         if ($this->isSaturday()) {
             return 0;
@@ -466,7 +499,7 @@ class Jalalian
         return $this->isDayOfWeek(Carbon::THURSDAY);
     }
 
-    public function getDayOfYear()
+    public function getDayOfYear(): int
     {
         $dayOfYear = 0;
         for ($m = 1; $m < $this->getMonth(); $m++) {
@@ -484,25 +517,25 @@ class Jalalian
         return $dayOfYear + $this->getDay();
     }
 
-    public function toString()
+    public function toString(): string
     {
         return $this->format('Y-m-d H:i:s');
     }
 
-    public function format(string $format)
+    public function format(string $format): string
     {
         return CalendarUtils::strftime($format, $this->toCarbon());
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->toString();
     }
 
-    public function ago()
+    public function ago(): string
     {
         $now = time();
-        $time = $this->toCarbon()->getTimestamp();
+        $time = $this->getTimestamp();
 
         // catch error
         if (!$time) {
@@ -534,40 +567,18 @@ class Jalalian
         return number_format($difference) . ' ' . $periods[$j] . ' ' . (isset($negative) ? '' : 'پیش');
     }
 
-    public function getNextWeek()
+    public function getTimestamp(): int
+    {
+        return $this->toCarbon()->getTimestamp();
+    }
+
+    public function getNextWeek(): Jalalian
     {
         return $this->addDays(7);
     }
 
-    public function addDays(int $days = 1)
-    {
-        return static::fromCarbon($this->toCarbon()->addDays($days));
-    }
-
-    public function getNextMonth()
+    public function getNextMonth(): Jalalian
     {
         return $this->addMonths(1);
-    }
-
-    public function getDaysOf(int $monthNumber = 1)
-    {
-        Assertion::between($monthNumber, 1, 12);
-
-        $months = [
-            1 => 31,
-            2 => 31,
-            3 => 31,
-            4 => 31,
-            5 => 31,
-            6 => 31,
-            7 => 30,
-            8 => 30,
-            9 => 30,
-            10 => 30,
-            11 => 30,
-            12 => $this->isLeapYear() ? 30 : 29,
-        ];
-
-        return $months[$monthNumber];
     }
 }
