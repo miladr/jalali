@@ -20,18 +20,18 @@ Run the Composer update comand
 ## Basic Usage
 In current version i introduced `Jalalian` class for manipulating jalali date time
 ### Jalalian
-In version >= 1.1,  You can use `Jalalian()` instead of `Jalalian::forge()`;
+In version >= 1.1,  You can use `jdate()` instead of `Jalalian::forge()`;
 #### `now([$timestamp = null])`
 ``` php
 // default timestamp is now
 $date = \Morilog\Jalali\Jalalian::now()
 // OR
-$date = Jalalian();
+$date = jdate();
 
 // pass timestamps
 $date = Jalalian::forge(1333857600);
 // OR
-$date = Jalalian(1333857600);
+$date = jdate(1333857600);
 
 // pass strings to make timestamps
 $date = Jalalian::forge('last sunday');
