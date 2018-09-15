@@ -34,15 +34,5 @@
             "Morilog\\Jalali\\Tests\\": "tests/"
         }
     },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Morilog\\Jalali\\JalaliServiceProvider"
-            ],
-            "aliases": {
-                "jDate": "Morilog\\Jalali\\Facades\\jDate"
-            }
-        }
-    },
     "minimum-stability": "dev"
 }
