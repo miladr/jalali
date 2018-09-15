@@ -47,9 +47,6 @@ $date = Jalalian::forge('last sunday')->format('datetime'); // 1391-10-02 00:00:
 $date = Jalalian::forge('last sunday')->format('date'); // 1391-10-02
 $date = Jalalian::forge('last sunday')->format('time'); // 00:00:00
 
-// amend the timestamp value, relative to existing value
-$date = Jalalian::forge('2012-10-12')->reforge('+ 3 days')->format('date'); // 1391-07-24
-
 // get relative 'ago' format
 $date = Jalalian::forge('now - 10 minutes')->ago() // 10 دقیقه پیش
 // OR
