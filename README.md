@@ -55,72 +55,467 @@ $date = Jalalian::forge('now - 10 minutes')->ago() // 10 دقیقه پیش
 
 #### Methods api
 ---
-```php
 
+
+```php
 public static function now(\DateTimeZone $timeZone = null): Jalalian
-public static function fromCarbon(Carbon $carbon): Jalalian
-public static function fromFormat(string $format, string $timestamp, \DateTimeZone $timeZone = null): Jalalian
-public static function forge($timestamp, \DateTimeZone $timeZone = null): Jalalian
-public static function fromDateTime($dateTime, \DateTimeZone $timeZone = null): Jalalian
-public function getMonthDays()
-public function getMonth(): int
-public function isLeapYear(): bool
-public function getYear()
-public function subMonths(int $months = 1): Jalalian
-public function subYears(int $years = 1): Jalalian
-public function getDay(): int
-public function getHour(): int
-public function getMinute(): int
-public function getSecond(): int
-public function getTimezone(): \DateTimeZone
-public function addMonths(int $months = 1): Jalalian
-public function addYears(int $years = 1): Jalalian
-public function getDaysOf(int $monthNumber = 1): int
-public function addDays(int $days = 1): Jalalian
-public function toCarbon(): Carbon
-public function subDays(int $days = 1): Jalalian
-public function addHours(int $hours = 1): Jalalian
-public function subHours(int $hours = 1): Jalalian
-public function addMinutes(int $minutes = 1): Jalalian
-public function subMinutes(int $minutes = 1): Jalalian
-public function addSeconds(int $secs = 1): Jalalian
-public function subSeconds(int $secs = 1): Jalalian
-public function equalsTo(Jalalian $other): bool
-public function equalsToCarbon(Carbon $carbon): bool
-public function greaterThan(Jalalian $other): bool
-public function greaterThanCarbon(Carbon $carbon): bool
-public function lessThan(Jalalian $other): bool
-public function lessThanCarbon(Carbon $carbon): bool
-public function greaterThanOrEqualsTo(Jalalian $other): bool
-public function greaterThanOrEqualsToCarbon(Carbon $carbon): bool
-public function lessThanOrEqualsTo(Jalalian $other): bool
-public function lessThanOrEqualsToCarbon(Carbon $carbon): bool
-public function isStartOfWeek(): bool
-public function isSaturday(): bool
-public function isDayOfWeek(int $day): bool
-public function isEndOfWeek(): bool
-public function isFriday(): bool
-public function isToday(): bool
-public function isTomorrow(): bool
-public function isYesterday(): bool
-public function isFuture(): bool
-public function isPast(): bool
-public function toArray(): array
-public function getDayOfWeek(): int
-public function isSunday(): bool
-public function isMonday(): bool
-public function isTuesday(): bool
-public function isWednesday(): bool
-public function isThursday(): bool
-public function getDayOfYear(): int
-public function toString(): string
-public function format(string $format): string
-public function __toString(): string
-public function ago(): string
-public function getTimestamp(): int
-public function getNextWeek(): Jalalian
-public function getNextMonth(): Jalalian
+
+// $jDate = Jalalian::now();
 ```
+
+---
+```php
+public static function fromCarbon(Carbon $carbon): Jalalian
+
+// $jDate = Jalalian::fromCarbon(Carbon::now());
+```
+
+---
+```php
+public static function fromFormat(string $format, string $timestamp, \DateTimeZone$timeZone = null): Jalalian 
+
+// $jDate = Jalalian::fromFormat('Y-m-d H:i:s', '1397-01-18 12:00:40');
+```
+
+
+---
+```php
+public static function forge($timestamp, \DateTimeZone $timeZone = null): Jalalian
+
+// Alias fo fromDatetime
+```
+
+---
+```php
+public static function fromDateTime($dateTime, \DateTimeZone $timeZone = null): Jalalian
+
+// $jDate = Jalalian::fromDateTime(Carbon::now())
+// OR 
+// $jDate = Jalalian::fromDateTime(new \DateTime());
+// OR
+// $jDate = Jalalian::fromDateTime('yesterday');
+
+```
+
+
+---
+```php
+public function getMonthDays(): int
+
+// $date = (new Jalalian(1397, 1, 18))->getMonthDays() 
+// output: 31
+```
+
+---
+```php
+public function getMonth(): int
+
+// $date = (new Jalalian(1397, 1, 18))->getMonth() 
+// output: 1
+```
+
+---
+```php
+public function isLeapYear(): bool
+
+// $date = (new Jalalian(1397, 1, 18))->isLeapYear() 
+// output: false
+
+```
+
+---
+```php
+public function getYear(): int
+
+// $date = (new Jalalian(1397, 1, 18))->getYear() 
+// output: 1397
+```
+
+---
+```php
+public function subMonths(int $months = 1): Jalalian
+
+// $date = (new Jalalian(1397, 1, 18))->subMonths(1)->toString() 
+// output: 1396-12-18 00:00:00
+
+```
+
+---
+```php
+public function subYears(int $years = 1): Jalalian
+
+// $date = (new Jalalian(1397, 1, 18))->subYears(1)->toString()
+// output: 1396-01-18 00:00:00
+```
+
+---
+```php
+public function getDay(): int
+
+// $date = (new Jalalian(1397, 1, 18))->getDay() 
+// output: 18
+
+```
+
+---
+```php
+public function getHour(): int
+
+// $date = (new Jalalian(1397, 1, 18, 12, 0, 0))->getHour() 
+// output: 12
+
+
+```
+
+---
+```php
+public function getMinute(): int
+
+// $date = (new Jalalian(1397, 1, 18, 12, 10, 0))->getMinute() 
+// output: 10
+
+```
+
+---
+```php
+public function getSecond(): int
+
+// $date = (new Jalalian(1397, 1, 18, 12, 10, 45))->getSecond() 
+// output: 45
+```
+
+---
+```php
+public function getTimezone(): \DateTimeZone
+
+// Get current timezone
+```
+
+---
+```php
+public function addMonths(int $months = 1): Jalalian
+
+// $date = (new Jalalian(1397, 1, 18, 12, 10, 0))->addMonths(1)->format('m') 
+// output: 02
+
+```
+
+---
+```php
+public function addYears(int $years = 1): Jalalian
+
+// $date = (new Jalalian(1397, 1, 18, 12, 10, 0))->addYears(1)->format('Y') 
+// output: 1398
+
+```
+
+---
+```php
+public function getDaysOf(int $monthNumber = 1): int
+
+// $date = (new Jalalian(1397, 1, 18, 12, 10, 0))->getDaysOf(1) 
+// output: 31
+```
+
+---
+```php
+public function addDays(int $days = 1): Jalalian
+
+// $date = (new Jalalian(1397, 1, 18, 12, 10, 0))->addDays(1)->format('d') 
+// output: 18
+
+```
+
+---
+```php
+public function toCarbon(): Carbon
+
+// $date = (new Jalalian(1397, 1, 18, 12, 10, 0))->toCarbon()->toDateTimeString() 
+// output: 2018-04-07 12:10:00
+```
+
+---
+```php
+public function subDays(int $days = 1): Jalalian
+
+// $date = (new Jalalian(1397, 1, 18, 12, 10, 0))->subDays(10)->format('d') 
+// output: 08
+```
+
+---
+```php
+public function addHours(int $hours = 1): Jalalian
+
+// $date = (new Jalalian(1397, 1, 18, 12, 10, 0))->addHours(1)->format('H') 
+// output: 13
+
+```
+
+---
+```php
+public function subHours(int $hours = 1): Jalalian
+
+// $date = (new Jalalian(1397, 1, 18, 12, 10, 0))->subHours(1)->format('H') 
+// output: 11
+
+```
+
+---
+```php
+public function addMinutes(int $minutes = 1): Jalalian
+
+// $date = (new Jalalian(1397, 1, 18, 12, 10, 0))->addMinutes(10)->format('i') 
+// output: 22
+
+```
+
+---
+```php
+public function subMinutes(int $minutes = 1): Jalalian
+
+// $date = (new Jalalian(1397, 1, 18, 12, 10, 0))->subMinutes(10)->format('i') 
+// output: 02
+
+```
+
+---
+```php
+public function addSeconds(int $secs = 1): Jalalian
+
+// $date = (new Jalalian(1397, 1, 18, 12, 10, 0))->addSeconds(10)->format('s') 
+// output: 10
+
+```
+
+---
+```php
+public function subSeconds(int $secs = 1): Jalalian
+
+// $date = (new Jalalian(1397, 1, 18, 12, 10, 0))->subSeconds(10)->format('i:s') 
+// output: 11:40
+
+
+```
+
+---
+```php
+public function equalsTo(Jalalian $other): bool
+
+// $date = (new Jalalian(1397, 1, 18, 12, 10, 0))->equalsTo(Jalalian::now()) 
+// output: false
+
+// $date = Jalalian::now()->equalsTo(Jalalian::now()) 
+// output: true
+
+```
+
+---
+```php
+public function equalsToCarbon(Carbon $carbon): bool
+
+// $date = Jalalian::now()->equalsToCarbon(Carbon::now())  
+// output: true
+```
+
+---
+```php
+public function greaterThan(Jalalian $other): bool
+
+```
+
+---
+```php
+public function greaterThanCarbon(Carbon $carbon): bool
+
+```
+
+---
+```php
+public function lessThan(Jalalian $other): bool
+
+```
+
+---
+```php
+public function lessThanCarbon(Carbon $carbon): bool
+
+```
+
+---
+```php
+public function greaterThanOrEqualsTo(Jalalian $other): bool
+
+```
+
+---
+```php
+public function greaterThanOrEqualsToCarbon(Carbon $carbon): bool
+
+```
+
+---
+```php
+public function lessThanOrEqualsTo(Jalalian $other): bool
+
+```
+
+---
+```php
+public function lessThanOrEqualsToCarbon(Carbon $carbon): bool
+
+```
+
+---
+```php
+public function isStartOfWeek(): bool
+
+```
+
+---
+```php
+public function isSaturday(): bool
+
+```
+
+---
+```php
+public function isDayOfWeek(int $day): bool
+
+```
+
+---
+```php
+public function isEndOfWeek(): bool
+
+```
+
+---
+```php
+public function isFriday(): bool
+
+```
+
+---
+```php
+public function isToday(): bool
+
+```
+
+---
+```php
+public function isTomorrow(): bool
+
+```
+
+---
+```php
+public function isYesterday(): bool
+
+```
+
+---
+```php
+public function isFuture(): bool
+
+```
+
+---
+```php
+public function isPast(): bool
+
+```
+
+---
+```php
+public function toArray(): array
+
+```
+
+---
+```php
+public function getDayOfWeek(): int
+
+```
+
+---
+```php
+public function isSunday(): bool
+
+```
+
+---
+```php
+public function isMonday(): bool
+
+```
+
+---
+```php
+public function isTuesday(): bool
+
+```
+
+---
+```php
+public function isWednesday(): bool
+
+```
+
+---
+```php
+public function isThursday(): bool
+
+```
+
+---
+```php
+public function getDayOfYear(): int
+
+```
+
+---
+```php
+public function toString(): string
+
+```
+
+---
+```php
+public function format(string $format): string
+
+```
+
+---
+```php
+public function __toString(): string
+
+```
+
+---
+```php
+public function ago(): string
+
+```
+
+---
+```php
+public function getTimestamp(): int
+
+```
+
+---
+```php
+public function getNextWeek(): Jalalian
+
+```
+
+---
+```php
+public function getNextMonth(): Jalalian
+
+```
+
+---
 
 ### CalendarUtils
 ---
