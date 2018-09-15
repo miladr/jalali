@@ -4,10 +4,20 @@ if (! function_exists('jdate')) {
 
     /**
      * @param string $str
-     * @return \Morilog\Jalali\jDate
+     * @return \Morilog\Jalali\Jalalian
      */
     function jdate($str = null)
     {
-        return \Morilog\Jalali\jDate::forge($str);
+        return \Morilog\Jalali\Jalalian::fromDateTime($str);
     }
+}
+
+function dd(...$args)
+{
+    dump(...$args);die();
+}
+
+function dump(...$args)
+{
+    var_dump(...$args);
 }

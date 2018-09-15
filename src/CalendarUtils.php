@@ -7,7 +7,7 @@ use Carbon\Carbon;
  * Class jDateTime
  * @package Morilog\Jalali
  */
-class jDateTime
+class CalendarUtils
 {
 
     private static $temp;
@@ -42,7 +42,7 @@ class jDateTime
     {
         return self::d2g(self::j2d($jy, $jm, $jd));
     }
-    
+
     /**
      * Converts a Jalali date to Gregorian.
      *
@@ -738,7 +738,7 @@ class jDateTime
                     unset($dt[$k]);
                 }
             }
-            if (!jDateTime::checkdate($dt['month'], $dt['day'], $dt['year'], false)) {
+            if (!CalendarUtils::checkdate($dt['month'], $dt['day'], $dt['year'], false)) {
                 $dt['error_count'] = 1;
             }
         } else {
