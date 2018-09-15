@@ -321,11 +321,16 @@ public function equalsToCarbon(Carbon $carbon): bool
 ```php
 public function greaterThan(Jalalian $other): bool
 
+// $date = Jalalian::now()->greaterThan(Jalalian::now()->subDays(1)))  
+// output: true
 ```
 
 ---
 ```php
 public function greaterThanCarbon(Carbon $carbon): bool
+
+// $date = Jalalian::now()->greaterThanCarbon(Carbon::now()->subDays(1)))  
+// output: true
 
 ```
 
@@ -333,11 +338,17 @@ public function greaterThanCarbon(Carbon $carbon): bool
 ```php
 public function lessThan(Jalalian $other): bool
 
+// $date = Jalalian::now()->lessThan(Jalalian::now()->addDays(1)))  
+// output: true
+
 ```
 
 ---
 ```php
 public function lessThanCarbon(Carbon $carbon): bool
+
+// $date = Jalalian::now()->lessThanCarbon(Carbon::now()->addDays(1)))  
+// output: true
 
 ```
 
@@ -345,11 +356,17 @@ public function lessThanCarbon(Carbon $carbon): bool
 ```php
 public function greaterThanOrEqualsTo(Jalalian $other): bool
 
+// $date = Jalalian::now()->greaterThan(Jalalian::now()->subDays(1)))  
+// output: true
+
 ```
 
 ---
 ```php
 public function greaterThanOrEqualsToCarbon(Carbon $carbon): bool
+
+// $date = Jalalian::now()->greaterThanOrEqualsToCarbon(Carbon::now()))  
+// output: true
 
 ```
 
@@ -357,11 +374,17 @@ public function greaterThanOrEqualsToCarbon(Carbon $carbon): bool
 ```php
 public function lessThanOrEqualsTo(Jalalian $other): bool
 
+// $date = Jalalian::now()->lessThanOrEqualsTo(Jalalian::now()))  
+// output: true
+
 ```
 
 ---
 ```php
 public function lessThanOrEqualsToCarbon(Carbon $carbon): bool
+
+// $date = Jalalian::now()->lessThanOrEqualsToCarbon(Carbon::now()))  
+// output: true
 
 ```
 
@@ -369,11 +392,17 @@ public function lessThanOrEqualsToCarbon(Carbon $carbon): bool
 ```php
 public function isStartOfWeek(): bool
 
+// $date = (new Jalalian(1397, 6, 24))->isStartOfWeek()
+// output: true
+
 ```
 
 ---
 ```php
 public function isSaturday(): bool
+
+// $date = (new Jalalian(1397, 6, 24))->isSaturday()
+// output: true
 
 ```
 
@@ -381,11 +410,17 @@ public function isSaturday(): bool
 ```php
 public function isDayOfWeek(int $day): bool
 
+// $date = (new Jalalian(1397, 6, 24))->isDayOfWeek(0)
+// output: true
+
 ```
 
 ---
 ```php
 public function isEndOfWeek(): bool
+
+// $date = (new Jalalian(1397, 6, 24))->isEndOfWeek()
+// output: false
 
 ```
 
@@ -393,11 +428,17 @@ public function isEndOfWeek(): bool
 ```php
 public function isFriday(): bool
 
+// $date = (new Jalalian(1397, 6, 24))->isFriday()
+// output: false
+
 ```
 
 ---
 ```php
 public function isToday(): bool
+
+// $date = (new Jalalian(1397, 6, 24))->isToday()
+// output: (!maybe) true
 
 ```
 
@@ -405,11 +446,17 @@ public function isToday(): bool
 ```php
 public function isTomorrow(): bool
 
+// $date = (new Jalalian(1397, 6, 25))->isTomorrow()
+// output: true
+
 ```
 
 ---
 ```php
 public function isYesterday(): bool
+
+// $date = (new Jalalian(1397, 6, 23))->isYesterday()
+// output: true
 
 ```
 
@@ -417,23 +464,46 @@ public function isYesterday(): bool
 ```php
 public function isFuture(): bool
 
+// $date = (new Jalalian(1397, 6, 26))->isFuture()
+// output: true
+
 ```
 
 ---
 ```php
 public function isPast(): bool
 
+// $date = (new Jalalian(1397, 5, 24))->isPast()
+// output: true
+
 ```
 
 ---
 ```php
 public function toArray(): array
-
+// $date = (new Jalalian(1397, 6, 24))->toArray()
+// output: (
+//     [year] => 1397
+//     [month] => 6
+//     [day] => 24
+//     [dayOfWeek] => 0
+//     [dayOfYear] => 179
+//     [hour] => 0
+//     [minute] => 0
+//     [second] => 0
+//     [micro] => 0
+//     [timestamp] => 1536969600
+//     [formatted] => 1397-06-24 00:00:00
+//     [timezone] =>
+// )
 ```
 
 ---
 ```php
 public function getDayOfWeek(): int
+
+// $date = (new Jalalian(1397, 5, 24))->getDayOfWeek()
+// output: 0
 
 ```
 
@@ -441,11 +511,17 @@ public function getDayOfWeek(): int
 ```php
 public function isSunday(): bool
 
+// $date = (new Jalalian(1397, 6, 24))->isSunday()
+// output: false
+
 ```
 
 ---
 ```php
 public function isMonday(): bool
+
+// $date = (new Jalalian(1397, 6, 26))->isMonday()
+// output: true
 
 ```
 
@@ -453,11 +529,17 @@ public function isMonday(): bool
 ```php
 public function isTuesday(): bool
 
+// $date = (new Jalalian(1397, 6, 24))->isTuesday()
+// output: false
+
 ```
 
 ---
 ```php
 public function isWednesday(): bool
+
+// $date = (new Jalalian(1397, 6, 24))->isWednesday()
+// output: false
 
 ```
 
@@ -465,17 +547,25 @@ public function isWednesday(): bool
 ```php
 public function isThursday(): bool
 
+// $date = (new Jalalian(1397, 6, 22))->isThursday()
+// output: true
+
 ```
 
 ---
 ```php
 public function getDayOfYear(): int
 
+// $date = (new Jalalian(1397, 5, 24))->getDayOfYear()
+// output: 179
+
 ```
 
 ---
 ```php
 public function toString(): string
+// $date = (new Jalalian(1397, 5, 24))->isPast()
+// output: 1397-05-24 00:00:00
 
 ```
 
@@ -483,12 +573,17 @@ public function toString(): string
 ```php
 public function format(string $format): string
 
+// $date = (new Jalalian(1397, 5, 24))->format('y')
+// output: 1397
+// see php date formats
+
 ```
 
 ---
 ```php
 public function __toString(): string
 
+// Alias of toString()
 ```
 
 ---
