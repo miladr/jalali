@@ -2,6 +2,7 @@
     "name": "morilog/jalali",
     "description": "This Package helps developers to easily work with Jalali (Shamsi or Iranian) dates in PHP applications, based on Jalali (Shamsi) DateTime class.",
     "license": "MIT",
+    "type": "library",
     "authors": [
         {
             "name": "Milad Rey",
@@ -16,7 +17,7 @@
     "require": {
         "php": ">=7.0",
         "nesbot/carbon": "^1.21",
-        "beberlei/assert": "dev-master"
+        "beberlei/assert": "3.*"
     },
     "require-dev" : {
         "phpunit/phpunit": "~4.0"
