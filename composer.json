@@ -15,7 +15,7 @@
     ],
     "keywords": ["Laravel","Date","Datetime","Jalali", "Morilog"],
     "require": {
-        "php": ">=7.0",
+        "php": "^7.0",
         "nesbot/carbon": "^1.21",
         "beberlei/assert": "3.*"
     },
