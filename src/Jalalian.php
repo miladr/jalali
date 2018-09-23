@@ -151,11 +151,28 @@ class Jalalian
     {
         Assertion::greaterOrEqualThan($months, 1);
 
-        $years = (int)($months / 12);
+        $diff = ($this->getMonth() - $months);
+
+        if ($diff >= 1) {
+            $day = $this->getDay();
+            $targetMonthDays = $this->getDaysOf($diff);
+            $targetDay = $day <= $targetMonthDays ? $day : $targetMonthDays;
+
+            return new static(
+                $this->getYear(),
+                $diff,
+                $targetDay,
+                $this->getHour(),
+                $this->getMinute(),
+                $this->getSecond(),
+                $this->getTimezone()
+            );
+        }
+    
+        $years = abs((int)($diff / 12));
+        $diff = abs($diff % 12) + 12;
         $date = $years > 0 ? $this->subYears($years) : clone $this;
-
-        $diff = abs($this->getMonth() - $months + 12);
-
+        
         return $date->subYears(1)->addMonths($diff);
     }
 
@@ -218,7 +235,7 @@ class Jalalian
     {
         Assertion::greaterOrEqualThan($months, 1);
 
-        $years = (int)($months / 12);
+        $years = (int) ($months / 12);
         $date = $years > 0 ? $this->addYears($years) : clone $this;
 
         $months = ($months % 12) + $date->getMonth();
@@ -231,7 +248,6 @@ class Jalalian
                 $months = $months - 12;
             }
         }
-
 
         return $date->addDays($days);
     }

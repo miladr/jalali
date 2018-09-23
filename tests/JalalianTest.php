@@ -57,5 +57,15 @@ final class JalalianTest extends TestCase
         $this->assertEquals($jDate->subYears(10)->toString(), (new Jalalian(1387, 1, 31))->toString());
         $this->assertTrue($jDate->subYears(2)->subMonths(34)->equalsTo(new Jalalian(1393, 10, 30)));
 
+        $jDate = (new Jalalian(1397, 6, 11))->subMonths(1);
+        $this->assertEquals($jDate->getMonth(), 5);
+
+        $this->assertEquals((new Jalalian(1397, 7, 1))->subMonths(1)->getMonth(), 6);
+        
+        $jDate = Jalalian::now();
+        $month = $jDate->getMonth();
+        if ($month > 1) {
+            $this->assertEquals($month - 1, $jDate->subMonths()->getMonth());
+        }
     }
 }
