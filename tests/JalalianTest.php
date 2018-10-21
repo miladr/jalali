@@ -61,11 +61,43 @@ final class JalalianTest extends TestCase
         $this->assertEquals($jDate->getMonth(), 5);
 
         $this->assertEquals((new Jalalian(1397, 7, 1))->subMonths(1)->getMonth(), 6);
-        
+
         $jDate = Jalalian::now();
         $month = $jDate->getMonth();
         if ($month > 1) {
             $this->assertEquals($month - 1, $jDate->subMonths()->getMonth());
         }
+
+
+        $jDate = Jalalian::fromFormat('Y-m-d', '1397-12-12');
+        $this->assertEquals('1398-01-12', $jDate->addMonths(1)->format('Y-m-d'));
+
+        $jDate = Jalalian::fromFormat('Y-m-d', '1397-11-30');
+        $this->assertEquals('1397-12-29', $jDate->addMonths(1)->format('Y-m-d'));
+
+        $jDate = Jalalian::fromFormat('Y-m-d', '1397-06-30');
+        $this->assertEquals('1397-07-30', $jDate->addMonths(1)->format('Y-m-d'));
+
+        $jDate = Jalalian::fromFormat('Y-m-d', '1397-06-31');
+        $this->assertEquals('1397-07-30', $jDate->addMonths(1)->format('Y-m-d'));
+
+        $jDate = Jalalian::fromFormat('Y-m-d', '1395-12-30');
+        $this->assertEquals('1399-12-30', $jDate->addMonths(48)->format('Y-m-d'));
+
+        $jDate = Jalalian::fromFormat('Y-m-d', '1395-12-30');
+        $this->assertEquals('1398-12-29', $jDate->addMonths(36)->format('Y-m-d'));
+    }
+
+    public function testForge()
+    {
+        $jDate = Jalalian::forge(strtotime('now'));
+        $this->assertTrue($jDate instanceof Jalalian);
+        $this->assertTrue($jDate->getTimestamp() === strtotime('now'));
+
+        $jDate = Jalalian::forge(1333857600);
+        $this->assertEquals($jDate->toString(), '1391-01-20 04:00:00');
+
+        $jDate = Jalalian::forge('last monday');
+        $this->assertTrue($jDate instanceof Jalalian);
     }
 }
