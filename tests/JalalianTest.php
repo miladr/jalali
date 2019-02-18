@@ -99,5 +99,8 @@ final class JalalianTest extends TestCase
 
         $jDate = Jalalian::forge('last monday');
         $this->assertTrue($jDate instanceof Jalalian);
+
+        $jDate = Jalalian::forge(1552608000);
+        $this->assertEquals('1397-12-24', $jDate->format('Y-m-d'));
     }
 }
