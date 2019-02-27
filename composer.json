@@ -34,5 +34,6 @@
         "psr-4": {
             "Morilog\\Jalali\\Tests\\": "tests/"
         }
-    }
+    },
+    "minimum-stablity": "dev"
 }
