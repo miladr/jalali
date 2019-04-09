@@ -174,10 +174,10 @@ class Jalalian
         }
 
         $years = abs((int)($diff / 12));
-        $diff = abs($diff % 12) + 12;
         $date = $years > 0 ? $this->subYears($years) : clone $this;
+        $diff = 12 - abs($diff % 12) - $date->getMonth();
 
-        return $date->subYears(1)->addMonths($diff);
+        return $diff > 0 ? $date->subYears(1)->addMonths($diff) : $date->subYears(1);
     }
 
     /**
