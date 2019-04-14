@@ -754,7 +754,7 @@ class CalendarUtils
         $dt['is_dst'] = '';
 
         if (strlen($dt['year']) == 2) {
-            $now = jDate::forge('now');
+            $now = Jalalian::forge('now');
             $x = $now->format('Y') - $now->format('y');
             $dt['year'] += $x;
         }
