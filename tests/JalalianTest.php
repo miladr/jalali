@@ -103,4 +103,15 @@ final class JalalianTest extends TestCase
         $jDate = Jalalian::forge(1552608000);
         $this->assertEquals('1397-12-24', $jDate->format('Y-m-d'));
     }
+
+    public function testMaximumYearFormatting()
+    {
+        $jDate = Jalalian::fromFormat('Y-m-d', '1800-12-01');
+        $this->assertEquals(1800, $jDate->getYear());
+        $this->assertEquals($jDate->format('Y-m-d'), '1800-12-01');
+
+        // issue-110
+        $jDate = Jalalian::fromFormat('Y-m-d', '1416-12-01');
+        $this->assertEquals(1416, $jDate->format('Y'));
+    }
 }
