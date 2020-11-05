@@ -426,7 +426,7 @@ class CalendarUtils
                     $v = $jMonth;
                     break;
                 case 't':
-                    $v = ($jMonth == 12) ? 29 : (($jMonth > 6 && $jMonth != 12) ? 30 : 31);
+                    $v = ($jMonth == 12) ? (self::isLeapJalaliYear($jYear) ? 30 : 29) : ($jMonth > 6 ? 30 : 31);
                     break;
                 //Year
                 case 'L':
@@ -754,7 +754,7 @@ class CalendarUtils
         $dt['is_dst'] = '';
 
         if (strlen($dt['year']) == 2) {
-            $now = jDate::forge('now');
+            $now = Jalalian::forge('now');
             $x = $now->format('Y') - $now->format('y');
             $dt['year'] += $x;
         }
