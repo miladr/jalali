@@ -680,6 +680,26 @@ $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers('۱۳۹۵-۰۲-۱۹'
 ```
 
 ---
+#### `Carbon api-difference`
+
+You can convert date/time to [briannesbitt/carbon](https://github.com/briannesbitt/carbon), thus being able to use it's [API](https://carbon.nesbot.com/docs/) to work with PHP DateTime class. 
+
+##### [Difference](https://carbon.nesbot.com/docs/#api-difference) in months:
+
+```php
+// convert persian to Carbon
+$date = \Morilog\Jalali\Jalalian::fromFormat('Y-m-d', "1395-02-19")->toCarbon(); 
+// ->toString() => Sun May 08 2016 00:00:00 GMT+0000
+
+// Add 4 months to Carbon
+$dateAdd4Months = $date->addMonths(4);
+
+// Difference in months
+$dateAdd4Months->DiffInMonths($date); //4
+$dateAdd4Months->floatDiffInMonths($date); //4.0
+```
+
+---
 ## Formatting ##
 
 For help in building your formats, checkout the [PHP strftime() docs](http://php.net/manual/en/function.strftime.php).
