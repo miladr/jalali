@@ -89,8 +89,15 @@ class Jalalian
     {
         $jDate = CalendarUtils::toJalali($carbon->year, $carbon->month, $carbon->day);
 
-        return new static($jDate[0], $jDate[1], $jDate[2], $carbon->hour, $carbon->minute, $carbon->second,
-            $carbon->getTimezone());
+        return new static(
+            $jDate[0],
+            $jDate[1],
+            $jDate[2],
+            $carbon->hour,
+            $carbon->minute,
+            $carbon->second,
+            $carbon->getTimezone()
+        );
     }
 
     public static function fromFormat(string $format, string $timestamp, \DateTimeZone $timeZone = null): Jalalian
@@ -608,5 +615,10 @@ class Jalalian
     public function getNextMonth(): Jalalian
     {
         return $this->addMonths(1);
+    }
+
+    public function getWeekOfMonth(): int
+    {
+        return ceil(($this->getDayOfWeek() + $this->day) / 7);
     }
 }
