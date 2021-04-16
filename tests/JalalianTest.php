@@ -114,4 +114,19 @@ final class JalalianTest extends TestCase
         $jDate = Jalalian::fromFormat('Y-m-d', '1416-12-01');
         $this->assertEquals(1416, $jDate->format('Y'));
     }
+
+    public function testGetWeekOfMonth()
+    {
+        $jDate = new Jalalian(1400, 1, 8);
+        $this->assertEquals($jDate->getWeekOfMonth(), 2);
+
+        $jDate = new Jalalian(1400, 5, 13);
+        $this->assertEquals($jDate->getWeekOfMonth(), 3);
+
+        $jDate = new Jalalian(1390, 11, 11);
+        $this->assertEquals($jDate->getWeekOfMonth(), 2);
+
+        $jDate = new Jalalian(1395, 7, 20);
+        $this->assertEquals($jDate->getWeekOfMonth(), 4);
+    }
 }
