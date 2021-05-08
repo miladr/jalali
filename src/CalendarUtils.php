@@ -439,6 +439,9 @@ class CalendarUtils
                     break;
                 case 'y':
                     $v = $jYear % 100;
+                    if ($v < 10) {
+                        $v = '0' . $v;
+                    }
                     break;
                 //Time
                 case 'a':
