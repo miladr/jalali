@@ -1,5 +1,5 @@
 {
-    "name": "morilog/jalali",
+    "name": "moree-dev/jalali",
     "description": "This Package helps developers to easily work with Jalali (Shamsi or Iranian) dates in PHP applications, based on Jalali (Shamsi) DateTime class.",
     "license": "MIT",
     "type": "library",
@@ -7,15 +7,14 @@
         {
             "name": "Milad Rey",
             "email": "miladr@gmail.com"
-        },
-	{
-		"name": "Morteza Parvini",
-		"email": "m.parvini@outlook.com"
-	}
+        }, {
+		    "name": "Morteza Parvini",
+		    "email": "m.parvini@outlook.com"
+	    }
     ],
     "keywords": ["Laravel","Date","Datetime","Jalali", "Morilog"],
     "require": {
-        "php": "^7.0 | ^7.1 | ^7.2 | ^8.0",
+        "php": "^7.0 | ^7.1 | ^7.2 | ^8.0 | ^8.1",
         "nesbot/carbon": "^1.21 || ^2.0",
         "beberlei/assert": "3.*"
     },

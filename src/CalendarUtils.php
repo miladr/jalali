@@ -206,7 +206,7 @@ class CalendarUtils
      */
     public static function div($a, $b)
     {
-        return ~~($a / $b);
+        return ~~(intval($a / $b));
     }
 
     /**
@@ -216,7 +216,7 @@ class CalendarUtils
      */
     public static function mod($a, $b)
     {
-        return $a - ~~($a / $b) * $b;
+        return $a - ~~(intval($a / $b)) * $b;
     }
 
     /**
