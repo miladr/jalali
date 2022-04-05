@@ -202,11 +202,10 @@ class CalendarUtils
     /**
      * @param $a
      * @param $b
-     * @return float
      */
-    public static function div($a, $b)
+    public static function div($a, $b):int
     {
-        return ~~(intval($a / $b));
+        return  intdiv($a ,$b);
     }
 
     /**
@@ -214,9 +213,9 @@ class CalendarUtils
      * @param $b
      * @return mixed
      */
-    public static function mod($a, $b)
+    public static function mod($a, $b):int
     {
-        return $a - ~~(intval($a / $b)) * $b;
+        return  $a - intdiv($a , $b) * $b;
     }
 
     /**
