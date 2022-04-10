@@ -123,6 +123,45 @@ class Jalalian
 
         return static::fromCarbon(new Carbon($dateTime, $timeZone));
     }
+    
+    public function getFirstDayOfWeek(): Jalalian
+    {
+        return new static(
+            $this->getYear(),
+            $this->getMonth(),
+            $this->getDay() - $this->getDayOfWeek(),
+            $this->getHour(),
+            $this->getMinute(),
+            $this->getSecond(),
+            $this->getTimezone()
+        );
+    }
+
+    public function getFirstDayOfMonth(): Jalalian
+    {
+        return new static(
+            $this->getYear(),
+            $this->getMonth(),
+            1,
+            $this->getHour(),
+            $this->getMinute(),
+            $this->getSecond(),
+            $this->getTimezone()
+        );
+    }
+
+    public function getFirstDayOfYear(): Jalalian
+    {
+        return new static(
+            $this->getYear(),
+            1,
+            1,
+            $this->getHour(),
+            $this->getMinute(),
+            $this->getSecond(),
+            $this->getTimezone()
+        );
+    }
 
     public function getMonthDays()
     {
