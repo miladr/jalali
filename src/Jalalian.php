@@ -126,15 +126,15 @@ class Jalalian
     
     public function getFirstDayOfWeek(): Jalalian
     {
-        return new static(
+        return (new static(
             $this->getYear(),
             $this->getMonth(),
-            $this->getDay() - $this->getDayOfWeek(),
+            $this->getDay(),
             $this->getHour(),
             $this->getMinute(),
             $this->getSecond(),
             $this->getTimezone()
-        );
+        ))->subDays($this->getDayOfWeek());
     }
 
     public function getFirstDayOfMonth(): Jalalian
