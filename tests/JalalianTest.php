@@ -135,10 +135,14 @@ final class JalalianTest extends TestCase
         $jDate = new Jalalian(1401, 1, 23);
         $this->assertEquals($jDate->getFirstDayOfWeek()->format('Y-m-d'), '1401-01-20');
 
-        for ($i=0;$i<5;$i++){
-            $jDate = new Jalalian(1401, rand(1,12), rand(1,29));
-            $this->assertEquals($jDate->getFirstDayOfWeek()->format('Y-m-d'), $jDate->subDays($jDate->getDayOfWeek())->format('Y-m-d'));
-        }
+        $jDate = new Jalalian(1395, 4, 24);
+        $this->assertEquals($jDate->getFirstDayOfWeek()->format('Y-m-d'), '1395-04-19');
+
+        $jDate = new Jalalian(1398, 11, 7);
+        $this->assertEquals($jDate->getFirstDayOfWeek()->format('Y-m-d'), '1398-11-05');
+
+        $jDate = new Jalalian(1400, 8, 19);
+        $this->assertEquals($jDate->getFirstDayOfWeek()->format('Y-m-d'), '1400-08-15');
     }
 
     public function testGetFirstDayOfMonth()
@@ -146,10 +150,14 @@ final class JalalianTest extends TestCase
         $jDate = new Jalalian(1401, 1, 23);
         $this->assertEquals($jDate->getFirstDayOfMonth()->format('Y-m-d'), '1401-01-01');
 
-        for ($i=0;$i<5;$i++){
-            $jDate = new Jalalian(1401, rand(1,12), rand(1,29));
-            $this->assertEquals($jDate->getFirstDayOfMonth()->format('Y-m-d'), $jDate->subDays($jDate->getDay() - 1)->format('Y-m-d'));
-        }
+        $jDate = new Jalalian(1390, 5, 14);
+        $this->assertEquals($jDate->getFirstDayOfMonth()->format('Y-m-d'), '1390-05-01');
+
+        $jDate = new Jalalian(1399, 2, 29);
+        $this->assertEquals($jDate->getFirstDayOfMonth()->format('Y-m-d'), '1399-02-01');
+
+        $jDate = new Jalalian(1398, 10, 10);
+        $this->assertEquals($jDate->getFirstDayOfMonth()->format('Y-m-d'), '1398-10-01');
     }
 
     public function testGetFirstDayOfYear()
@@ -157,9 +165,13 @@ final class JalalianTest extends TestCase
         $jDate = new Jalalian(1401, 6, 11);
         $this->assertEquals($jDate->getFirstDayOfYear()->format('Y-m-d'), '1401-01-01');
 
-        for ($i=0;$i<5;$i++){
-            $jDate = new Jalalian(1401, rand(1,12), rand(1,29));
-            $this->assertEquals($jDate->getFirstDayOfYear()->format('Y-m-d'), $jDate->subDays($jDate->getDayOfYear() - 1)->format('Y-m-d'));
-        }
+        $jDate = new Jalalian(1399, 11, 28);
+        $this->assertEquals($jDate->getFirstDayOfYear()->format('Y-m-d'), '1399-01-01');
+
+        $jDate = new Jalalian(1394, 1, 12);
+        $this->assertEquals($jDate->getFirstDayOfYear()->format('Y-m-d'), '1394-01-01');
+
+        $jDate = new Jalalian(1393, 9, 5);
+        $this->assertEquals($jDate->getFirstDayOfYear()->format('Y-m-d'), '1393-01-01');
     }
 }
