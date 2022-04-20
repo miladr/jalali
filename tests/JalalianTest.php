@@ -128,6 +128,37 @@ final class JalalianTest extends TestCase
 
         $jDate = new Jalalian(1395, 7, 20);
         $this->assertEquals($jDate->getWeekOfMonth(), 4);
+
+        $jDate = new Jalalian(1401, 1, 5);
+        $this->assertEquals($jDate->getWeekOfMonth(), 1);
+
+        $jDate = new Jalalian(1390, 8, 7);
+        $this->assertEquals($jDate->getWeekOfMonth(), 2);
+
+
+        $jDate = new Jalalian(1390, 8, 27);
+        $this->assertEquals($jDate->getWeekOfMonth(), 4);
+
+        $jDate = new Jalalian(1390, 7, 1);
+        $this->assertEquals($jDate->getWeekOfMonth(), 1);
+
+        $jDate = new Jalalian(1390, 7, 2);
+        $this->assertEquals($jDate->getWeekOfMonth(), 2);
+
+        $jDate = new Jalalian(1390, 7, 30);
+        $this->assertEquals($jDate->getWeekOfMonth(), 6);
+
+        $jDate = new Jalalian(1390, 6, 15);
+        $this->assertEquals($jDate->getWeekOfMonth(), 3);
+
+        $jDate = new Jalalian(1390, 6, 25);
+        $this->assertEquals($jDate->getWeekOfMonth(), 4);
+
+        $jDate = new Jalalian(1390, 6, 26);
+        $this->assertEquals($jDate->getWeekOfMonth(), 5);
+
+        $jDate = new Jalalian(1401, 3, 7);
+        $this->assertEquals($jDate->getWeekOfMonth(), 2);
     }
     
     public function testGetFirstDayOfWeek()
