@@ -658,6 +658,6 @@ class Jalalian
 
     public function getWeekOfMonth(): int
     {
-        return floor(($this->day + 7 - $this->getDayOfWeek()) / 7) + 1;
+        return floor(($this->day + 5 - $this->getDayOfWeek()) / 7) + 1;
     }
 }
