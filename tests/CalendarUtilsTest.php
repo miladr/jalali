@@ -63,6 +63,37 @@ class CalendarUtilsTest extends TestCase
         }
     }
 
+    public function testFormatMonthName()
+    {
+        $months = range(1, 12);
+
+        // Should returns iranian months name as default
+        foreach ($months as $month) {
+            $date = sprintf('1401/%d/10', $month);
+            $actual = Jalalian::fromFormat('Y/n/d', $date)->format('F');
+            $expected = CalendarUtils::IRANIAN_MONTHS_NAME[$month - 1];
+            $this->assertEquals($expected, $actual);
+        }
+
+        // Should returns afghan months name when set
+        CalendarUtils::useAfghanMonthsName();
+        foreach ($months as $month) {
+            $date = sprintf('1401/%d/10', $month);
+            $actual = Jalalian::fromFormat('Y/n/d', $date)->format('F');
+            $expected = CalendarUtils::AFGHAN_MONTHS_NAME[$month - 1];
+            $this->assertEquals($expected, $actual);
+        }
+
+        // Should returns afghan months name when set
+        CalendarUtils::useIranianMonthsName();
+        foreach ($months as $month) {
+            $date = sprintf('1401/%d/10', $month);
+            $actual = Jalalian::fromFormat('Y/n/d', $date)->format('F');
+            $expected = CalendarUtils::IRANIAN_MONTHS_NAME[$month - 1];
+            $this->assertEquals($expected, $actual);
+        }
+    }
+
     public function test_parseFromPersian()
     {
         $jalaliDate = '1393/03/27';
