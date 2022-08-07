@@ -101,6 +101,10 @@ class CalendarUtilsTest extends TestCase
         $jalaiDateTimeFormatted = Jalalian::fromDateTime($carbon->toDateTimeString())->format('Y-m-d H:i:s');
         $this->assertFalse($jalaiDateFormatted === '1394-11-25 15:00:00');
         $this->assertTrue($jalaiDateTimeFormatted === '1394-11-25 15:00:00');
+
+        // Test support years after 1416
+        $carbon = CalendarUtils::createCarbonFromFormat('Y/m/d', '1417/10/11');
+        $this->assertEquals('2039-01-01', $carbon->format('Y-m-d'));
     }
 
     public function testTimezone()
