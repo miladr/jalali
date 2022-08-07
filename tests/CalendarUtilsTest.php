@@ -38,14 +38,29 @@ class CalendarUtilsTest extends TestCase
 
     public function testStrftime()
     {
-        $this->assertTrue(CalendarUtils::strftime('Y-m-d', strtotime('2016-05-8')) === '1395-02-19');
-        $this->assertTrue(CalendarUtils::convertNumbers(CalendarUtils::strftime('Y-m-d',
-                strtotime('2016-05-8'))) === '۱۳۹۵-۰۲-۱۹');
+        $table = [
+            [
+                '2016-05-08',
+                'Y-m-d',
+                '1395-02-19'
+            ],
+            [
+                '2022-03-24',
+                'y-m-d',
+                '01-01-04'
+            ],
+            [
+                '2023-03-24',
+                'y-m-D',
+                '02-01-ج'
+            ],
+        ];
 
-        $dateString = CalendarUtils::convertNumbers('۱۳۹۵-۰۲-۱۹', true); // 1395-02-19
-        $this->assertTrue(CalendarUtils::createCarbonFromFormat('Y-m-d',
-                $dateString)->format('Y-m-d') === '2016-05-08');
-        $this->assertFalse(CalendarUtils::strftime('Y-m-d', strtotime('2016-05-8')) === '۱۳۹۵-۰۲-۱۹');
+        foreach ($table as $row) {
+            list($dateTimeString, $format, $expected) = $row;
+            $timestamp = strtotime($dateTimeString);
+            $this->assertEquals($expected, CalendarUtils::strftime($format, $timestamp));
+        }
     }
 
     public function test_parseFromPersian()
@@ -86,7 +101,6 @@ class CalendarUtilsTest extends TestCase
         $jalaiDateTimeFormatted = Jalalian::fromDateTime($carbon->toDateTimeString())->format('Y-m-d H:i:s');
         $this->assertFalse($jalaiDateFormatted === '1394-11-25 15:00:00');
         $this->assertTrue($jalaiDateTimeFormatted === '1394-11-25 15:00:00');
-
     }
 
     public function testTimezone()
@@ -104,7 +118,6 @@ class CalendarUtilsTest extends TestCase
         $tzOffset = $this->getTimeZoneOffset('Asia/Tehran', 'UTC');
 
         $this->assertTrue((((($utcHour * 60) + $utcMin) * 60) - ((($tehranHour * 60) + $tehranMin) * 60)) === $tzOffset);
-
     }
 
 
