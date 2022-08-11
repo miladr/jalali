@@ -671,7 +671,7 @@ $carbon = \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d H:i:s', $
 #### `convertNumbers($string)`
 ```php
 // convert latin to persian
-$date = \Morilog\Jalali\CalendarUtils::strftime('Y-m-d', strtotime('2016-05-8'); // 1395-02-19
+$date = \Morilog\Jalali\CalendarUtils::strftime('Y-m-d', strtotime('2016-05-8')); // 1395-02-19
 \Morilog\Jalali\CalendarUtils::convertNumbers($date); // ۱۳۹۵-۰۲-۱۹
 
 // convert persian to latin
