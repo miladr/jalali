@@ -7,6 +7,8 @@ use Carbon\Carbon;
 
 class Jalalian
 {
+    use Converter;
+
     /**
      * @var int
      */
