@@ -663,6 +663,11 @@ class Jalalian
         return static::fromCarbon($this->toCarbon()->addDays($days));
     }
 
+    public function addDay(): Jalalian
+    {
+        return static::fromCarbon($this->toCarbon()->addDays());
+    }
+
     public function getNextMonth(): Jalalian
     {
         return $this->addMonths(1);
