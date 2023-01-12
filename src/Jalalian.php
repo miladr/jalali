@@ -653,6 +653,11 @@ class Jalalian
         return $this->addDays(7);
     }
 
+    public function getLastWeek(): Jalalian
+    {
+        return $this->subDays(7);
+    }
+
     public function addDays(int $days = 1): Jalalian
     {
         return static::fromCarbon($this->toCarbon()->addDays($days));
