@@ -354,6 +354,11 @@ class Jalalian
         return static::fromCarbon($this->toCarbon()->subDays($days));
     }
 
+    public function subDay(): Jalalian
+    {
+        return static::fromCarbon($this->toCarbon()->subDays(1));
+    }
+
     /**
      * @return Carbon
      */
