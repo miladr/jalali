@@ -673,6 +673,11 @@ class Jalalian
         return $this->addMonths(1);
     }
 
+    public function getLastMonth(): Jalalian
+    {
+        return $this->subMonths(1);
+    }
+
     public function getWeekOfMonth(): int
     {
         return floor(($this->day + 5 - $this->getDayOfWeek()) / 7) + 1;
