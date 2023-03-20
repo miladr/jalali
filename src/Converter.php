@@ -39,7 +39,7 @@ trait Converter
      *
      * @return string
      */
-    public function toFormattedDayDateString(): string
+    public function toFormattedDayDateString()
     {
         return $this->format('l j F Y');
     }
@@ -136,7 +136,7 @@ trait Converter
      *
      * @return string
      */
-    public function toFormattedMonthYearString(): string
+    public function toFormattedMonthYearString()
     {
         return $this->format('F Y');
     }
