@@ -665,7 +665,7 @@ class Jalalian
 
     public function addDay(): Jalalian
     {
-        return static::fromCarbon($this->toCarbon()->addDays());
+        return $this->addDays(1);
     }
 
     public function getNextMonth(): Jalalian
