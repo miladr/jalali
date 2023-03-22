@@ -354,6 +354,11 @@ class Jalalian
         return static::fromCarbon($this->toCarbon()->subDays($days));
     }
 
+    public function subDay(): Jalalian
+    {
+        return $this->subDays(1);
+    }
+
     /**
      * @return Carbon
      */
@@ -648,14 +653,29 @@ class Jalalian
         return $this->addDays(7);
     }
 
+    public function getLastWeek(): Jalalian
+    {
+        return $this->subDays(7);
+    }
+
     public function addDays(int $days = 1): Jalalian
     {
         return static::fromCarbon($this->toCarbon()->addDays($days));
     }
 
+    public function addDay(): Jalalian
+    {
+        return $this->addDays(1);
+    }
+
     public function getNextMonth(): Jalalian
     {
         return $this->addMonths(1);
+    }
+
+    public function getLastMonth(): Jalalian
+    {
+        return $this->subMonths(1);
     }
 
     public function getWeekOfMonth(): int
