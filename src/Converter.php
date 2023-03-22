@@ -39,7 +39,7 @@ trait Converter
      *
      * @return string
      */
-    public function toFormattedDayDateString(): string
+    public function toFormattedDayDateString()
     {
         return $this->format('l j F Y');
     }
@@ -66,6 +66,18 @@ trait Converter
     public function toDateTimeString($unitPrecision = 'second')
     {
         return $this->format('Y/m/d ' . static::getTimeFormatByPrecision($unitPrecision));
+    }
+
+    /**
+     * Format the instance as a readable date and time
+     *
+     * @param string $unitPrecision
+     *
+     * @return string
+     */
+    public function toFormattedDateTimeString($unitPrecision = 'second')
+    {
+        return $this->format('j F Y ' . static::getTimeFormatByPrecision($unitPrecision));
     }
 
     /**
@@ -110,11 +122,23 @@ trait Converter
     /**
      * Format the instance with day, date and time
      *
+     * @param string $unitPrecision
+     *
      * @return string
      */
-    public function toDayDateTimeString()
+    public function toDayDateTimeString($unitPrecision = 'second')
     {
-        return $this->format('l j F Y g:i A');
+        return $this->format('l j F Y ' . static::getTimeFormatByPrecision($unitPrecision));
+    }
+
+    /**
+     * Format the instance with the year, and a readable month
+     *
+     * @return string
+     */
+    public function toFormattedMonthYearString()
+    {
+        return $this->format('F Y');
     }
 
 }
